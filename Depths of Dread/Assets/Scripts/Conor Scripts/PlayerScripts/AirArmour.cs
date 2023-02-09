@@ -130,7 +130,7 @@ public class AirArmour : MonoBehaviour
         damage += damageRecieved;
         Sparks.Play();
         //SparkSfx.Play();
-        StartCoroutine(CamaeraShake());
+        //StartCoroutine(CamaeraShake());
     }
 
     public void RecieveArmourRepair(float repairAmount)

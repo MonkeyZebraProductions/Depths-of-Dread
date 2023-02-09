@@ -30,17 +30,24 @@ public class TriggerUI : MonoBehaviour
             {
                 saveInput.SwitchCurrentActionMap("Player/UI");
             }
+
             
             UICanvas.SetActive(true);
             if (Keyboard.current.eKey.isPressed)
             {
-                saveInput.SwitchCurrentActionMap("Player");
+                if(RistrictControl)
+                {
+                    saveInput.SwitchCurrentActionMap("Player");
+                }
                 TriggerEvent.Invoke();
             }
 
             if (Gamepad.all.Count > 0 && Gamepad.current.buttonSouth.isPressed)
             {
-                saveInput.SwitchCurrentActionMap("Player");
+                if (RistrictControl)
+                {
+                    saveInput.SwitchCurrentActionMap("Player");
+                }
                 TriggerEvent.Invoke();
             }
         }
@@ -50,9 +57,12 @@ public class TriggerUI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-           
-            saveInput.SwitchCurrentActionMap("Player");
-            
+
+            if (RistrictControl)
+            {
+                saveInput.SwitchCurrentActionMap("Player");
+            }
+
             UICanvas.SetActive(false);
         }
     }

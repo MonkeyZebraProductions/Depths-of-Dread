@@ -64,8 +64,10 @@ public class GrappleSystem : MonoBehaviour
 
         if(!_WS.IsAiming && GrabbedObject != null)
         {
+            GrabbedObject.GetComponent<MoveOutOfWall>().moveback = false;
             GrabbedObject.transform.parent = null;
             _grappleRigidbody.isKinematic = false;
+            _grappleRigidbody.useGravity = true;
             GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 1f);
             GrabbedObject = null;
             IsGrappling = false;
@@ -84,8 +86,10 @@ public class GrappleSystem : MonoBehaviour
             {
                 if (GrabbedObject != null)
                 {
+                    GrabbedObject.GetComponent<MoveOutOfWall>().moveback = false;
                     GrabbedObject.transform.parent = null;
-                    _grappleRigidbody.isKinematic = false;
+                    //_grappleRigidbody.isKinematic = false;
+                    _grappleRigidbody.useGravity = true;
                     _grappleRigidbody.AddForce(transform.forward * LaunchForce, ForceMode.Impulse);
                     GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 1f);
                     GrabbedObject = null;
@@ -117,9 +121,11 @@ public class GrappleSystem : MonoBehaviour
                 GrabbedObject = VisibleAnchor.transform.GetChild(0).gameObject;
                 GrabbedObject.transform.SetParent(this.transform);
                 GrabbedObject.transform.localPosition = SpawnPoint.localPosition;
+                GrabbedObject.transform.localRotation = Quaternion.identity;
                 _grappleRigidbody = GrabbedObject.GetComponent<Rigidbody>();
-                _grappleRigidbody.isKinematic = true;
-                GrappleMat= GrabbedObject.GetComponent<MeshRenderer>().material;
+                //_grappleRigidbody.isKinematic = true;
+                _grappleRigidbody.useGravity = false;
+                GrappleMat = GrabbedObject.GetComponent<MeshRenderer>().material;
                 GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, AlphaAmount);
             }
             else
