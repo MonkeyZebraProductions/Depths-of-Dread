@@ -45,12 +45,12 @@ public class SeeThroughBoxMove : MonoBehaviour
             if (SeePlayer.collider.gameObject.layer==11)
             {
                 ShaderOn = false;
-                Debug.Log("Can See");
+                //Debug.Log("Can See");
             }
             else if(CinemachineCore.Instance.IsLive(AimCam))
             {
                 ShaderOn = true;
-                Debug.Log("On");
+                //Debug.Log("On");
             }
             else
             {

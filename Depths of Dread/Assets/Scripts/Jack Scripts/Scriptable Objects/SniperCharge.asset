@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bcfde965bcb724b82b6782116e6f89, type: 3}
+  m_Name: SniperCharge
+  m_EditorClassIdentifier: 
+  weaponName: Shotgun
+  weaponPrefab: {fileID: 6249328331763939993, guid: d6036bdf34a31874ba3d714833208bf9, type: 3}
+  MaxAmmoCount: 100
+  currentAmmoCount: 100
+  ClipSize: 1
+  weaponRange: 100
+  bulletsPerShot: 1
+  weaponSpread: 0
+  fireRate: 3
+  hitBulletTrail: {fileID: 6778416936914913120, guid: 3d53179500acc3442917db526ebbf695, type: 3}
+  missBulletTrail: {fileID: 6778416936914913120, guid: 3ce2a1415376e0f409eaa7370aaad543, type: 3}
+  direction: {x: -21.121687, y: 57.592003, z: 75.078384}
