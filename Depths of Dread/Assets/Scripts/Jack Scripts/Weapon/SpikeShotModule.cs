@@ -131,7 +131,7 @@ public class SpikeShotModule : MonoBehaviour
             
         }
 
-        if (Reload.triggered)
+        if (Reload.triggered && WeaponScriptableObject.currentAmmoCount > 0)
         {
             ReloadFunction();
         }
@@ -169,7 +169,7 @@ public class SpikeShotModule : MonoBehaviour
     public void WeaponLaser()
     {
 
-            if (WeaponHit.collider)
+            if (WeaponHit.collider && !WeaponHit.collider.gameObject.CompareTag("IgnoreProjectileCollisions"))
             {
                 lr.SetPosition(1, new Vector3(0, 0, WeaponHit.distance));
             }

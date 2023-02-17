@@ -52,7 +52,7 @@ public class GrappleSystem : MonoBehaviour
         controller = GetComponentInParent<CharacterController>();
         _pMS = GetComponentInParent<PlayerMovementScript>();
 
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         HorizSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed;
         VertSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed;
     }

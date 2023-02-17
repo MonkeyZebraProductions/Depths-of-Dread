@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyUnitHealth : MonoBehaviour
 {
-    public int currentHealth;
-    public int MaxHealth;
+    public float currentHealth;
+    public float MaxHealth;
     private ParticleSystem BloodSplatter;
     private SpawnPickup Drops;
 
@@ -29,7 +29,7 @@ public class EnemyUnitHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (currentHealth > 0)
         {

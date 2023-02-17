@@ -8,6 +8,7 @@ public class AimChanger : MonoBehaviour
 {
     public float VerticalAimPC, HorizontalAimPC, VerticalAimConsole, HorizontalAimConsole;
     public PlayerInput PI;
+    public CameaSensitivity MouseSensitivity, StickSensitivity;
 
     private CinemachineVirtualCamera Cam;
     private CinemachinePOV pOV;
@@ -23,13 +24,13 @@ public class AimChanger : MonoBehaviour
     {
         if(PI.currentControlScheme == "Gamepad")
         {
-            pOV.m_HorizontalAxis.m_MaxSpeed = HorizontalAimConsole;
-            pOV.m_VerticalAxis.m_MaxSpeed = VerticalAimConsole;
+            pOV.m_HorizontalAxis.m_MaxSpeed = HorizontalAimConsole * (1+StickSensitivity.Sensitivity)/2;
+            pOV.m_VerticalAxis.m_MaxSpeed = VerticalAimConsole * (1 + StickSensitivity.Sensitivity) / 2;
         }
         if (PI.currentControlScheme == "Keyboard&Mouse")
         {
-            pOV.m_HorizontalAxis.m_MaxSpeed = HorizontalAimPC;
-            pOV.m_VerticalAxis.m_MaxSpeed = VerticalAimPC;
+            pOV.m_HorizontalAxis.m_MaxSpeed = HorizontalAimPC * (1 + MouseSensitivity.Sensitivity) / 2;
+            pOV.m_VerticalAxis.m_MaxSpeed = VerticalAimPC * (1 + MouseSensitivity.Sensitivity) / 2;
         }
     }
 }

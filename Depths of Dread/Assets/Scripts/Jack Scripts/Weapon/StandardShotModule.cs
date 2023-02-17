@@ -111,11 +111,11 @@ public class StandardShotModule : MonoBehaviour
         _WS.TotalAmmo = _currentAmmoCount;
         if (_isAiming)
         {
-            WeaponLaser();
             Physics.Raycast(muzzle.transform.position, transform.forward, out WeaponHit,10000f);
+            WeaponLaser();
         }
 
-        if(Reload.triggered)
+        if(Reload.triggered && WeaponScriptableObject.currentAmmoCount > 0)
         {
             ReloadFunction();
         }
@@ -152,7 +152,7 @@ public class StandardShotModule : MonoBehaviour
     public void WeaponLaser()
     {
 
-            if (WeaponHit.collider)
+            if (WeaponHit.collider && !WeaponHit.collider.gameObject.CompareTag("IgnoreProjectileCollisions"))
             {
                 lr.SetPosition(1, new Vector3(0, 0, WeaponHit.distance));
             }

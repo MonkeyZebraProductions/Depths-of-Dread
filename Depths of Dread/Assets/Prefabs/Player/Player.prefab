@@ -5606,7 +5606,7 @@ PrefabInstance:
     - {fileID: 6700302303481580374, guid: 40cd9afbe1dde8847becc5337d192de0, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6700302303481580377, guid: 40cd9afbe1dde8847becc5337d192de0, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 4330020223400261096}
     - targetCorrespondingSourceObject: {fileID: 6700302303139148506, guid: 40cd9afbe1dde8847becc5337d192de0, type: 3}
       insertIndex: -1

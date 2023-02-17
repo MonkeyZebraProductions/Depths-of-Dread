@@ -6,13 +6,13 @@ using TMPro;
 
 public class WeaponSwitching : MonoBehaviour
 {
-    public int weaponSlotSelected = 1;
+    public int weaponSlotSelected = 0;
 
-    public GameObject firstWeaponSlotOPrefab, secondWeaponSlotPrefab;
+    public List< GameObject> WeaponSlots;
 
     public PlayerInput playerInput;
 
-    public InputAction weaponSwitchingOneKey, weaponSwitchingTwoKey;
+    public InputAction weaponSwitchingOneKey, weaponSwitchingTwoKey, weaponSwitchingThreeKey, weaponSwitchingFourKey;
 
 
     public GrappleSystem grappleSystem;
@@ -30,29 +30,36 @@ public class WeaponSwitching : MonoBehaviour
         playerInput = GetComponentInParent<PlayerInput>();
         weaponSwitchingOneKey = playerInput.actions["OneKey"];
         weaponSwitchingTwoKey = playerInput.actions["TwoKey"];
+        weaponSwitchingThreeKey = playerInput.actions["ThreeKey"];
+        weaponSwitchingFourKey = playerInput.actions["FourKey"];
 
-        SwapWeapon(1);
+        SwapWeapon(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(weaponSwitchingOneKey.IsPressed())
+        if(weaponSwitchingOneKey.triggered)
         {
-            if(weaponSlotSelected != 1)
-            {
-                SwapWeapon(1);
-            }
+            SwapWeapon(0);
         }
 
-        if(weaponSwitchingTwoKey.IsPressed())
+        if(weaponSwitchingTwoKey.triggered)
         {
-            if (weaponSlotSelected != 2)
-            {
-                SwapWeapon(2);
-            }
+            SwapWeapon(1);
         }
-        if(IsAiming)
+
+        if (weaponSwitchingThreeKey.triggered)
+        {
+            SwapWeapon(2);
+        }
+
+        if (weaponSwitchingFourKey.triggered)
+        {
+            SwapWeapon(3);
+        }
+
+        if (IsAiming)
         {
             ClipCount.enabled = true;
             AmmoCount.enabled = true;
@@ -69,20 +76,14 @@ public class WeaponSwitching : MonoBehaviour
 
     void SwapWeapon(int weaponType)
     {
-        if(weaponType == 1)
+        if(weaponType !=weaponSlotSelected)
         {
-            weaponSlotSelected = 1;
-
-            firstWeaponSlotOPrefab.SetActive(true);
-            secondWeaponSlotPrefab.SetActive(false);
+            WeaponSlots[weaponSlotSelected].SetActive(false);
+            weaponSlotSelected = weaponType;
+            WeaponSlots[weaponSlotSelected].SetActive(true);
         }
+       
+    }
 
-        if(weaponType == 2)
-        {
-            weaponSlotSelected = 2;
+}
 
-            firstWeaponSlotOPrefab.SetActive(false);
-            secondWeaponSlotPrefab.SetActive(true);
-        }
-}
-}
