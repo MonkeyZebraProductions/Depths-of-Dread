@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveOutOfWall : MonoBehaviour
 {
     public float smoothTime = 0.5F;
-    public bool moveback;
+    public bool moveback,grappled;
     public Vector3 movePos;
     private Vector3 velocity = Vector3.zero;
 
@@ -16,7 +16,7 @@ public class MoveOutOfWall : MonoBehaviour
 
     void Update()
     {
-        if(moveback)
+        if(moveback && grappled)
         {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, movePos, ref velocity, smoothTime);
         }

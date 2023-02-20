@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
         }
         if (other.gameObject.tag!="IgnoreProjectileCollisions")
         {
-            //Debug.Log(other.gameObject);
+            Debug.Log(other.gameObject);
             Destroy(this.gameObject);
         }
 

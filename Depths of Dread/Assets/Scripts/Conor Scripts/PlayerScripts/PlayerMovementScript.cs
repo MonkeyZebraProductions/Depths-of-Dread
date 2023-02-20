@@ -74,11 +74,6 @@ public class PlayerMovementScript : MonoBehaviour
     private InputAction Jump;
     private InputAction Dash;
 
-    [Header("Weapon Switching")]
-    // Weapon Switching
-    public float weaponIndicator;
-    public GameObject[] weapons = new GameObject[4];
-
     [Header("UpgradeBools")]
     public bool DashEnabled, JetpackEnabled;
 
@@ -194,11 +189,14 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 _stopWindow = false;
                 _currentSpeed = PlayerSpeed;
-                if (!Walk.isPlaying && _isGrounded)
+                if (_isGrounded)
                 {
-                    Walk.Play();
                     TopAnimator.SetBool("IsWalking", true);
                     BottomAnimator.SetBool("IsWalking", true);
+                    if (!Walk.isPlaying)
+                    {
+                        Walk.Play();
+                    }
                 }
 
             }
@@ -221,7 +219,6 @@ public class PlayerMovementScript : MonoBehaviour
             float targetAngel = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
             float Botangle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
             BottomPart.rotation = Quaternion.Euler(0f, Botangle, 0f);
-
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps == 1 && _isSliding == false)
             {

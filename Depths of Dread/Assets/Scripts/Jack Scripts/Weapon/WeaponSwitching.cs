@@ -8,11 +8,14 @@ public class WeaponSwitching : MonoBehaviour
 {
     public int weaponSlotSelected = 0;
 
-    public List< GameObject> WeaponSlots;
+    public List<GameObject> WeaponSlots;
+    public List<GameObject> WeaponModels;
+    public GameObject DefaultArm;
 
     public PlayerInput playerInput;
 
     public InputAction weaponSwitchingOneKey, weaponSwitchingTwoKey, weaponSwitchingThreeKey, weaponSwitchingFourKey;
+    
 
 
     public GrappleSystem grappleSystem;
@@ -71,6 +74,17 @@ public class WeaponSwitching : MonoBehaviour
         }
         ClipCount.text = ClipAmmo.ToString();
         AmmoCount.text = TotalAmmo.ToString();
+
+        if (IsAiming)
+        {
+            WeaponModels[weaponSlotSelected].SetActive(true);
+            DefaultArm.SetActive(false);
+        }
+        else
+        {
+            WeaponModels[weaponSlotSelected].SetActive(false);
+            DefaultArm.SetActive(true);
+        }
     }
 
 

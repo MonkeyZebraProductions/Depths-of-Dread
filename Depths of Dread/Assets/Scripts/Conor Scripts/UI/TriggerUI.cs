@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Cinemachine;
 
 public class TriggerUI : MonoBehaviour
 {
@@ -16,10 +17,23 @@ public class TriggerUI : MonoBehaviour
 
     public bool RistrictControl;
 
+    public CinemachineInputProvider CIP;
+    public CinemachineBrain CB;
+    public InputActionReference NormalLookAxis, TutorialAxis;
+
     private void Awake()
     {
         Submit = saveInput.actions["Submit"];
         UICanvas.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(RistrictControl)
+        {
+            CIP = CB.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineInputProvider>();
+        }
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -29,6 +43,7 @@ public class TriggerUI : MonoBehaviour
             if(RistrictControl)
             {
                 saveInput.SwitchCurrentActionMap("Player/UI");
+                CIP.XYAxis = TutorialAxis;
             }
 
             
@@ -38,6 +53,7 @@ public class TriggerUI : MonoBehaviour
                 if(RistrictControl)
                 {
                     saveInput.SwitchCurrentActionMap("Player");
+                    CIP.XYAxis = NormalLookAxis;
                 }
                 TriggerEvent.Invoke();
             }
@@ -47,6 +63,7 @@ public class TriggerUI : MonoBehaviour
                 if (RistrictControl)
                 {
                     saveInput.SwitchCurrentActionMap("Player");
+                    CIP.XYAxis = NormalLookAxis;
                 }
                 TriggerEvent.Invoke();
             }

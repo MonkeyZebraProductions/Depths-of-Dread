@@ -64,6 +64,7 @@ public class GrappleSystem : MonoBehaviour
 
         if(!_WS.IsAiming && GrabbedObject != null)
         {
+            GrabbedObject.GetComponent<MoveOutOfWall>().grappled = false;
             GrabbedObject.GetComponent<MoveOutOfWall>().moveback = false;
             GrabbedObject.transform.parent = null;
             _grappleRigidbody.isKinematic = false;
@@ -86,6 +87,7 @@ public class GrappleSystem : MonoBehaviour
             {
                 if (GrabbedObject != null)
                 {
+                    GrabbedObject.GetComponent<MoveOutOfWall>().grappled = false;
                     GrabbedObject.GetComponent<MoveOutOfWall>().moveback = false;
                     GrabbedObject.transform.parent = null;
                     //_grappleRigidbody.isKinematic = false;
@@ -127,6 +129,7 @@ public class GrappleSystem : MonoBehaviour
                 _grappleRigidbody.useGravity = false;
                 GrappleMat = GrabbedObject.GetComponent<MeshRenderer>().material;
                 GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, AlphaAmount);
+                GrabbedObject.GetComponent<MoveOutOfWall>().grappled = true;
             }
             else
             {

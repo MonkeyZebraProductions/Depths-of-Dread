@@ -138,7 +138,7 @@ Material:
     - _DissolveColorSaturation: 0.71
     - _DissolveEmission: 1
     - _DissolveEmissionBooster: 260
-    - _DissolveFallOff: 0.425
+    - _DissolveFallOff: 0
     - _DissolveMaskEnabled: 0
     - _DissolveStrength: 0.099
     - _DstBlend: 0
@@ -164,7 +164,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NextFloorY: 0
-    - _Obstruction: 3
+    - _Obstruction: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PlayerPosYOffset: 1
