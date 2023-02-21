@@ -444,9 +444,11 @@ MonoBehaviour:
   CommonDrops:
   - {fileID: 128696451689317341, guid: 06f11933438ed2040b0d3492d1bc91d4, type: 3}
   - {fileID: 564864599313577925, guid: f0612f5af9063a54d9cb6fbc501bbc16, type: 3}
-  - {fileID: 4777066156425210145, guid: deaa342dacc91ca46a7ec168eb055108, type: 3}
+  - {fileID: 5706711664483954844, guid: 777dcec888c47da43aa925316df28e47, type: 3}
   RareDrops:
   - {fileID: 4777066156425210145, guid: deaa342dacc91ca46a7ec168eb055108, type: 3}
+  - {fileID: 4278961754957874902, guid: 4ca410feadd553c4aab97d9a9a29c138, type: 3}
+  - {fileID: 7213864487990111714, guid: fbf8dd0413a8abe46b995f10ad387d6a, type: 3}
   RareDropWeight: 10
 --- !u!4 &805720860357286181 stripped
 Transform:
