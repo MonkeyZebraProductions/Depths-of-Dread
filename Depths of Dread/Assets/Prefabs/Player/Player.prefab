@@ -1168,6 +1168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2453ef936500a44b84617448bfd6d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 0
+  stay: 0
 --- !u!54 &744639211
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2478,12 +2480,6 @@ MonoBehaviour:
   MaxJetpackFeul: 3
   JetpackDecreaseRate: 1
   playerVelocity: {x: 0, y: 0, z: 0}
-  weaponIndicator: 0
-  weapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   DashEnabled: 1
   JetpackEnabled: 0
   Walk: {fileID: 0}

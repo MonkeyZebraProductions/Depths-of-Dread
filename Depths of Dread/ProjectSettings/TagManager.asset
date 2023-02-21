@@ -7,11 +7,12 @@ TagManager:
   - Enemy
   - GrappleHook
   - GrabbableObject
+  - IgnoreProjectileCollisions
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - LocalMap
