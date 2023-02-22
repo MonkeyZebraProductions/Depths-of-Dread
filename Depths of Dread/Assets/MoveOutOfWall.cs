@@ -19,6 +19,7 @@ public class MoveOutOfWall : MonoBehaviour
         if(moveback && grappled)
         {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, movePos, ref velocity, smoothTime);
+            transform.localRotation = Quaternion.identity;
         }
     }
 

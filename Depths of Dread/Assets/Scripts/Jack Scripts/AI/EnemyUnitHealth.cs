@@ -6,10 +6,12 @@ public class EnemyUnitHealth : MonoBehaviour
 {
     public float currentHealth;
     public float MaxHealth;
+    public bool IsBiter, IsBanshee, IsPersuer, IsBigBad;
     private ParticleSystem BloodSplatter;
     private SpawnPickup Drops;
 
-    private Biter_FOV biterFOV;
+    private Biter_AI_Controller biterAI;
+    private Banshee_AI_Controller bansheeAI;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,15 @@ public class EnemyUnitHealth : MonoBehaviour
         currentHealth = MaxHealth;
         BloodSplatter = GetComponentInChildren<ParticleSystem>();
         Drops = GetComponent<SpawnPickup>();
-        biterFOV = GetComponentInParent<Biter_FOV>();
+        if(IsBiter)
+        {
+            biterAI = GetComponentInParent<Biter_AI_Controller>();
+        }
+        if(IsBanshee)
+        {
+            bansheeAI = GetComponentInParent<Banshee_AI_Controller>();
+        }
+        
     }
 
     // Update is called once per frame
@@ -35,7 +45,15 @@ public class EnemyUnitHealth : MonoBehaviour
         {
             BloodSplatter.Play();
             currentHealth -= damage;
-            biterFOV.canSeePlayer = true;
+            if(IsBiter)
+            {
+                biterAI.justGotHit = true;
+            }
+            if (IsBanshee)
+            {
+                bansheeAI.justGotHit = true;
+            }
+
         }
     }
 

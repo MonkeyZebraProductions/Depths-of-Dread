@@ -129,7 +129,7 @@ public class AirArmour : MonoBehaviour
     {
         damage += damageRecieved;
         Sparks.Play();
-        //SparkSfx.Play();
+        SparkSfx.Play();
         //StartCoroutine(CamaeraShake());
     }
 
@@ -166,14 +166,9 @@ public class AirArmour : MonoBehaviour
         Noise.m_AmplitudeGain = AmplitudeChange;    
         Noise.m_FrequencyGain = FrequencyChange;
         yield return new WaitForSeconds(0.5f);
-        CancelShake();
     }
 
     public void CancelShake()
     {
-        Cam = Brain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
-        Noise = Cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        Noise.m_AmplitudeGain = 1f;
-        Noise.m_FrequencyGain = 0.2f;
     }
 }

@@ -40,31 +40,18 @@ public class TriggerUI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if(RistrictControl)
-            {
-                saveInput.SwitchCurrentActionMap("Player/UI");
-                CIP.XYAxis = TutorialAxis;
-            }
+            
 
             
             UICanvas.SetActive(true);
             if (Keyboard.current.eKey.isPressed)
             {
-                if(RistrictControl)
-                {
-                    saveInput.SwitchCurrentActionMap("Player");
-                    CIP.XYAxis = NormalLookAxis;
-                }
+                
                 TriggerEvent.Invoke();
             }
 
             if (Gamepad.all.Count > 0 && Gamepad.current.buttonSouth.isPressed)
             {
-                if (RistrictControl)
-                {
-                    saveInput.SwitchCurrentActionMap("Player");
-                    CIP.XYAxis = NormalLookAxis;
-                }
                 TriggerEvent.Invoke();
             }
         }
@@ -75,10 +62,6 @@ public class TriggerUI : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
 
-            if (RistrictControl)
-            {
-                saveInput.SwitchCurrentActionMap("Player");
-            }
 
             UICanvas.SetActive(false);
         }

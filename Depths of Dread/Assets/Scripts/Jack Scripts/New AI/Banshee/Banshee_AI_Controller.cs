@@ -24,6 +24,8 @@ public class Banshee_AI_Controller : MonoBehaviour
     public Vector3 spawner2;
     public Vector3 spawner3;
 
+    public bool justGotHit = false;
+
     public Banshee_AI_State State
     {
         get
@@ -57,7 +59,11 @@ public class Banshee_AI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (justGotHit)
+        {
+            State = Banshee_AI_State.Alarm;
+            justGotHit = false;
+        }
     }
 
     private void OnEnable()

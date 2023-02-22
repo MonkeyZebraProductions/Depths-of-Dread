@@ -332,6 +332,8 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 return adjustedVelocity;
             }
+
+            Debug.Log(hitInfo.collider.name);
         }
 
         return velocity;

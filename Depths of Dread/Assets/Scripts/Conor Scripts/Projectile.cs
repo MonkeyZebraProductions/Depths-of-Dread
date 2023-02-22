@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
         if(other.gameObject.tag=="Enemy")
         {
             other.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(Damage);
-            other.gameObject.GetComponent<Biter_AI>().State = BiterState.Chase;
+            //other.gameObject.GetComponent<Biter_AI_Controller>().State = Biter_AI_State.Chase;
         }
         if (other.gameObject.tag!="IgnoreProjectileCollisions")
         {

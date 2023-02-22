@@ -18,10 +18,11 @@ public class LookAtPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Target = GetComponent<Biter_AI>().CurrentDestination;
+        Target = GetComponent<Biter_AI_Controller>().CurrentDestination;
         //Model.transform.LookAt(Target);
 
         Quaternion lookOnLook = Quaternion.LookRotation(Target.transform.position - Model.transform.position);
+       
         Model.transform.rotation =
         Quaternion.Slerp(Model.transform.rotation, lookOnLook, Time.deltaTime);
 

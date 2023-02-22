@@ -18,13 +18,16 @@ public class Biter_AI_Controller : MonoBehaviour
     public float attackDistance = 2.5f;
 
     public Biter_AI_State defaultState;
-    private Biter_AI_State _state;
+    public Biter_AI_State _state;
     public delegate void StateChangeEvent(Biter_AI_State oldState, Biter_AI_State newState);
     public StateChangeEvent OnStateChange;
 
     public Transform[] Waypoints;
     [SerializeField]
     private int WaypointIndex = 0;
+    public Transform CurrentDestination;
+
+    public bool justGotHit=false;
 
     public Biter_AI_State State
     {
@@ -59,7 +62,11 @@ public class Biter_AI_Controller : MonoBehaviour
 
     private void Update()
     {
-
+        if(justGotHit)
+        {
+            State = Biter_AI_State.Chase;
+            justGotHit = false;
+        }
     }
 
     private void OnEnable()
@@ -136,7 +143,6 @@ public class Biter_AI_Controller : MonoBehaviour
                 yield return Wait;
                 Debug.Log("Problem");
             }
-
             else if (Agent.remainingDistance <= Agent.stoppingDistance)
             {
                 Vector3 random = Random.insideUnitSphere * wanderLocationRadius;
@@ -173,6 +179,7 @@ public class Biter_AI_Controller : MonoBehaviour
                 }
 
                 Agent.SetDestination(Waypoints[WaypointIndex].position);
+                CurrentDestination = Waypoints[WaypointIndex];
             }
             yield return Wait;
         }
@@ -189,6 +196,7 @@ public class Biter_AI_Controller : MonoBehaviour
             {
                 nextLocation = Player.transform.position;
                 Agent.SetDestination(nextLocation);
+                CurrentDestination = Player.transform;
                 Agent.stoppingDistance = attackDistance;
             }
 
