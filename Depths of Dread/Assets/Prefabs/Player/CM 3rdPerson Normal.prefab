@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3469599450065357389}
   - component: {fileID: 3469599450065357390}
   - component: {fileID: 3469599450065357391}
-  - component: {fileID: 1077544800}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -30,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0.3232659, y: -0.00000007186669, z: 0.000000024550193, w: 0.9463082}
   m_LocalPosition: {x: -4.6440506, y: -3.8999977, z: 3.0482786}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3469599450278736864}
   m_RootOrder: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_LookaheadIgnoreY: 0
   m_XDamping: 0.2
   m_YDamping: 0.2
-  m_ZDamping: 1
+  m_ZDamping: 0.2
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecenterTarget: 2
+  m_RecenterTarget: 0
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 1
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 1
-    m_MaxSpeed: 0.5
+    m_MaxSpeed: 0.25
     m_AccelTime: 0.2
     m_DecelTime: 0.2
     m_InputAxisName: Mouse X
@@ -151,23 +151,6 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_ApplyBeforeBody: 0
---- !u!114 &1077544800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3469599450065357385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 2
-  m_FrequencyGain: 0.3
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &3469599450278736866
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +164,7 @@ GameObject:
   - component: {fileID: 3469599450278736871}
   - component: {fileID: 4045816563654307665}
   - component: {fileID: 1443636854}
+  - component: {fileID: 439783718}
   m_Layer: 0
   m_Name: CM 3rdPerson Normal
   m_TagString: Untagged
@@ -198,10 +182,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.2632803, y: 1.9193236, z: -7.0903907}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3469599450065357384}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3469599450278736865
 MonoBehaviour:
@@ -220,7 +205,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
@@ -232,7 +217,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 1
@@ -255,21 +240,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4096
   m_IgnoreTag: Enemy
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_MinimumDistanceFromTarget: 0.1
+  m_MinimumDistanceFromTarget: 0.01
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 0.1
-  m_Strategy: 1
+  m_Strategy: 0
   m_MaximumEffort: 4
   m_SmoothingTime: 0
-  m_Damping: 0.5
-  m_DampingWhenOccluded: 0.4
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!114 &4045816563654307665
 MonoBehaviour:
@@ -284,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: -1
+  AutoEnableInputs: 1
   XYAxis: {fileID: 841105785112614450, guid: b7eca0930b60bd3489d31dbc39d9c872, type: 3}
   ZAxis: {fileID: 0}
 --- !u!114 &1443636854
@@ -301,3 +287,22 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 0}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
+--- !u!114 &439783718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469599450278736866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de90d067e9bc0c4a909054956f54dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VerticalAimPC: 0.1
+  HorizontalAimPC: 0.125
+  VerticalAimConsole: 1.2
+  HorizontalAimConsole: 2
+  PI: {fileID: 0}
+  MouseSensitivity: {fileID: 0}
+  StickSensitivity: {fileID: 0}

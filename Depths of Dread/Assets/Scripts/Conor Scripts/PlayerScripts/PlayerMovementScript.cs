@@ -189,7 +189,7 @@ public class PlayerMovementScript : MonoBehaviour
             if (moveInput.magnitude > 0)
             {
                 _stopWindow = false;
-                _currentSpeed = PlayerSpeed;
+                //_currentSpeed = PlayerSpeed;
                 if (_isGrounded)
                 {
                     TopAnimator.SetBool("IsWalking", true);
@@ -308,7 +308,7 @@ public class PlayerMovementScript : MonoBehaviour
     private IEnumerator DashTimer()
     {
         _stopWindow = false;
-        //_currentSpeed = DashSpeed;
+        _currentSpeed = DashSpeed;
         _isDashing = true;
         dashes -= 1;
         yield return new WaitForSeconds(DashTime);
