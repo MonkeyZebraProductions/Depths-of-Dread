@@ -8,7 +8,7 @@ public class PauseGame : MonoBehaviour
 {
     public PlayerInput PlayerInput;
     private InputAction PauseButton;
-    public GameObject PauseCanvas;
+    public GameObject PauseCanvas,PostProcessing;
     private CinemachineBrain cMB;
     private bool _isPasued;
     private UnderWaterEffect uWE;
@@ -44,6 +44,7 @@ public class PauseGame : MonoBehaviour
             Time.timeScale = 0;
             cMB.enabled = false;
             uWE.enabled = false;
+            PostProcessing.SetActive(false);
             PauseCanvas.SetActive(true);
         }
         else
@@ -54,6 +55,7 @@ public class PauseGame : MonoBehaviour
             Time.timeScale = 1;
             cMB.enabled = true;
             uWE.enabled = true;
+            PostProcessing.SetActive(true);
             PauseCanvas.SetActive(false);
         }
     }

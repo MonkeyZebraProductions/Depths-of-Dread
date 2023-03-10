@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering.PostProcessing;
 
 public class AirArmour : MonoBehaviour
 {
@@ -16,13 +17,15 @@ public class AirArmour : MonoBehaviour
 
     private float air, damage,lowAirDecreaseRate;
 
+
+    //Air Management
     public TextMeshProUGUI AirText;
     public Slider AirBar1, AirBar2;
     public Transform Needle;
     public Material AirMat,DialMat;
 
     private ParticleSystem Sparks;
-    public AudioSource SparkSfx;
+    public AudioSource SparkSfx,GruntSfx;
 
     public CinemachineBrain Brain;
     private CinemachineVirtualCamera Cam;
@@ -35,6 +38,16 @@ public class AirArmour : MonoBehaviour
     public float LowPassCuttoffPercent,MinVolume,MaxVolume, MinPitch,MaxPitch,MinBreathingLowCut, MaxBreathingLowCut;
     private float _currentCutoff, _currentCutoffPercent,_currentVolume,_currentPitch,_currentBreathingCutoff;
 
+    //Post Processing Changes
+    public PostProcessVolume PP;
+    private ChromaticAberration cA;
+    private DepthOfField dOF;
+    private LensDistortion lD;
+
+    public List<Image> Cracks;
+    private int currentIndex, prevIndex;
+    private float crackAlpha = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +58,7 @@ public class AirArmour : MonoBehaviour
         lowAirDecreaseRate = 1;
         _currentCutoff = 3500;
         _currentCutoffPercent = 100;
+        prevIndex=currentIndex;
     }
 
     // Update is called once per frame
@@ -56,7 +70,7 @@ public class AirArmour : MonoBehaviour
         //_currentAmplitude = Noise.m_AmplitudeGain;
         //_currentFrequency = Noise.m_FrequencyGain;
 
-
+        //checks if current values are beyond their limits
         if (damage<BaseDamageMultiplier)
         {
             damage = BaseDamageMultiplier;
@@ -72,8 +86,10 @@ public class AirArmour : MonoBehaviour
             damage = MaxDamage;
         }
 
+        //lowers air amount by the amount of damage taken
         air -= AirDecreaceRate * lowAirDecreaseRate * damage*Time.deltaTime;
 
+        //updates air UI
         AirText.text = "Air: " + Mathf.Round(air*100)/100;
         AirBar1.maxValue = AirBar2.maxValue = MaxAir;
         AirBar1.value = AirBar2.value = MaxAir - air;
@@ -83,6 +99,7 @@ public class AirArmour : MonoBehaviour
 
         if (air<MaxAir/4)
         {
+            //low air mode
             lowAirDecreaseRate = 0.75f;
             _currentPitch = MapFunction(air*4, MaxAir, 0, MinPitch, MaxPitch);
             _currentBreathingCutoff = MapFunction(air*4, MaxAir, 0, MinBreathingLowCut, MaxBreathingLowCut);
@@ -90,10 +107,12 @@ public class AirArmour : MonoBehaviour
             {
                 _currentCutoffPercent -= 20 * Time.deltaTime;
             }
+            ChangePostProcessing();
 
         }
         else
         {
+            ZeroPP();
             lowAirDecreaseRate = 1f;
             _currentPitch = 0.3f;
             _currentBreathingCutoff = 500f;
@@ -109,6 +128,7 @@ public class AirArmour : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        //changes needle roation based on damage
         Needle.localRotation =Quaternion.Euler(0, 0, MapFunction(damage, BaseDamageMultiplier, MaxDamage, -30f, 210f));
         AirMat.SetColor("_EmissionColor", new Color(1-MapFunction(air, MaxAir, MaxAir/5, 1, 0),MapFunction(air, MaxAir, MaxAir / 5, 1, 0), 0)*1.25f);
         DialMat.SetColor("_EmissionColor", new Color(MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 1-MapFunction(damage, MaxDamage, MaxDamage / 5, 1, 0), 0) * 1.25f);
@@ -121,8 +141,11 @@ public class AirArmour : MonoBehaviour
 
         Breathing.SetFloat("BreathingLowPass", _currentBreathingCutoff);
 
-
-
+        Cracks[prevIndex].color = new Color(1, 1, 1, crackAlpha);
+        if(crackAlpha>0)
+        {
+            crackAlpha -= Time.deltaTime;
+        }
     }
 
     public void RecieveArmourDamage(float damageRecieved)
@@ -130,6 +153,18 @@ public class AirArmour : MonoBehaviour
         damage += damageRecieved;
         Sparks.Play();
         SparkSfx.Play();
+        GruntSfx.Play();
+        crackAlpha = 1;
+        prevIndex = currentIndex;
+        if(currentIndex==Cracks.Count-1)
+        {
+            currentIndex = 0;
+        }
+        else
+        {
+            currentIndex += 1;
+        }
+        
         //StartCoroutine(CamaeraShake());
     }
 
@@ -170,5 +205,24 @@ public class AirArmour : MonoBehaviour
 
     public void CancelShake()
     {
+    }
+
+    void ChangePostProcessing()
+    {
+        PP.profile.TryGetSettings(out cA);
+        cA.intensity.value = MapFunction(air * 4, MaxAir, 0, 0, 1);
+        PP.profile.TryGetSettings(out dOF);
+        dOF.aperture.value = MapFunction(air * 4, MaxAir, 0, 3, 0.5f);
+        PP.profile.TryGetSettings(out lD);
+        lD.intensity.value = MapFunction(air * 4, MaxAir, 0, 0, 30);
+    }
+     void ZeroPP()
+    {
+        PP.profile.TryGetSettings(out cA);
+        cA.intensity.value = 0;
+        PP.profile.TryGetSettings(out dOF);
+        dOF.aperture.value = 3;
+        PP.profile.TryGetSettings(out lD);
+        lD.intensity.value = 0;
     }
 }

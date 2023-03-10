@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class WeaponSwitching : MonoBehaviour
 {
     public int weaponSlotSelected = 0;
+    private int prevWeapon;
 
     public List<GameObject> WeaponSlots;
     public List<GameObject> WeaponModels;
@@ -27,6 +29,15 @@ public class WeaponSwitching : MonoBehaviour
 
     public TextMeshProUGUI ClipCount, AmmoCount;
 
+    public Transform WeaponWheel;
+    public Canvas WeaponCanvas;
+    public List<CanvasGroup> SlotImages;
+    public List<float> WheelRotations;
+    private Quaternion TargetRotation;
+    float RotateSpeed = 5f;
+    float step;
+    float smoothTime;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,12 +48,16 @@ public class WeaponSwitching : MonoBehaviour
         weaponSwitchingFourKey = playerInput.actions["FourKey"];
 
         SwapWeapon(0);
+        WeaponWheel.rotation = Quaternion.Euler(0, 0, WheelRotations[weaponSlotSelected]);
+        SlotImages[weaponSlotSelected].alpha = 1;
+        ClipCount = SlotImages[weaponSlotSelected].GetComponentInChildren<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(weaponSwitchingOneKey.triggered)
+        ClipCount = SlotImages[weaponSlotSelected].GetComponentInChildren<TextMeshProUGUI>();
+        if (weaponSwitchingOneKey.triggered)
         {
             SwapWeapon(0);
         }
@@ -64,27 +79,24 @@ public class WeaponSwitching : MonoBehaviour
 
         if (IsAiming)
         {
-            ClipCount.enabled = true;
-            AmmoCount.enabled = true;
-        }
-        else
-        {
-            ClipCount.enabled = false;
-            AmmoCount.enabled = false;
-        }
-        ClipCount.text = ClipAmmo.ToString();
-        AmmoCount.text = TotalAmmo.ToString();
-
-        if (IsAiming)
-        {
+            WeaponCanvas.enabled = true;
             WeaponModels[weaponSlotSelected].SetActive(true);
             DefaultArm.SetActive(false);
         }
         else
         {
+            WeaponCanvas.enabled = false;
             WeaponModels[weaponSlotSelected].SetActive(false);
             DefaultArm.SetActive(true);
         }
+        ClipCount.text = ClipAmmo.ToString();
+        AmmoCount.text = TotalAmmo.ToString();
+        
+        step += RotateSpeed * Time.deltaTime;
+        TargetRotation = Quaternion.Euler(0, 0, WheelRotations[weaponSlotSelected]);
+        WeaponWheel.localRotation = Quaternion.Slerp(WeaponWheel.localRotation, Quaternion.Euler(0, 0, WheelRotations[weaponSlotSelected]), step);
+        smoothTime += 2*Time.deltaTime;
+        SlotImages[prevWeapon].alpha = Mathf.Lerp(0.2f,0f,smoothTime);
     }
 
 
@@ -93,8 +105,13 @@ public class WeaponSwitching : MonoBehaviour
         if(weaponType !=weaponSlotSelected)
         {
             WeaponSlots[weaponSlotSelected].SetActive(false);
+            SlotImages[weaponSlotSelected].alpha = 0.2f;
+            prevWeapon = weaponSlotSelected;
             weaponSlotSelected = weaponType;
             WeaponSlots[weaponSlotSelected].SetActive(true);
+            SlotImages[weaponSlotSelected].alpha = 1;
+            step = 0;
+            smoothTime = 0;
         }
        
     }

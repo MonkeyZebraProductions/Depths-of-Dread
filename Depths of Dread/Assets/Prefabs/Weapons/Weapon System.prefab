@@ -5546,7 +5546,7 @@ Transform:
   - {fileID: 5213281581005027434}
   - {fileID: 1235469892937984142}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4851498980484868099
 MonoBehaviour:
@@ -5584,19 +5584,19 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   weaponSwitchingThreeKey:
-    m_Name: 
+    m_Name: Weapon Switching Three Key
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 
+    m_Id: 05729584-e2ca-4814-978c-c009e260b07c
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
   weaponSwitchingFourKey:
-    m_Name: 
+    m_Name: Weapon Switching Four Key
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 
+    m_Id: a355dd78-5b71-4769-903d-5748c0f9f401
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
