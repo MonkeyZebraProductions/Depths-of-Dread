@@ -90,6 +90,7 @@ public class RapidShotModule : MonoBehaviour
 
         LaserRederer = LaserBox.gameObject.GetComponent<MeshRenderer>();
         LaserRederer.enabled = false;
+        lastShootTime = _fireRate;
     }
 
     // Update is called once per frame

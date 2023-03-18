@@ -10,8 +10,9 @@ public class PauseGame : MonoBehaviour
     private InputAction PauseButton;
     public GameObject PauseCanvas,PostProcessing;
     private CinemachineBrain cMB;
-    private bool _isPasued;
+    public bool _isPasued;
     private UnderWaterEffect uWE;
+    private WeaponSwitching wS;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class PauseGame : MonoBehaviour
         PauseButton.performed += _ => Pause();
         cMB = FindObjectOfType<CinemachineBrain>();
         uWE = FindObjectOfType<UnderWaterEffect>();
+        wS = FindObjectOfType<WeaponSwitching>();
     }
 
     private void OnEnable()
@@ -44,6 +46,7 @@ public class PauseGame : MonoBehaviour
             Time.timeScale = 0;
             cMB.enabled = false;
             uWE.enabled = false;
+            wS.enabled = false;
             PostProcessing.SetActive(false);
             PauseCanvas.SetActive(true);
         }
@@ -55,6 +58,7 @@ public class PauseGame : MonoBehaviour
             Time.timeScale = 1;
             cMB.enabled = true;
             uWE.enabled = true;
+            wS.enabled = true;
             PostProcessing.SetActive(true);
             PauseCanvas.SetActive(false);
         }

@@ -30,7 +30,7 @@ public class PlayerMovementScript : MonoBehaviour
     private int jumps;
     public float jumpButtonGracePeriod;
     private float currentJH, currentJM, fallVelocity;
-    private bool _isJumping;
+    private bool _isJumping,_jumpAnimation;
 
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
@@ -128,7 +128,9 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
         {
-            jumps = MaxJumps;
+            
+                jumps = MaxJumps;
+            
             fallVelocity = 1;
             if (slopeSlideVelocity != Vector3.zero)
             {
@@ -223,13 +225,17 @@ public class PlayerMovementScript : MonoBehaviour
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps == 1 && _isSliding == false)
             {
-                _isJumping = true;
-                currentJH = JumpHeight;
-                currentJM = JumpMultiplier;
-                fallVelocity = 1;
-                jumps -= 1;
-                jumpButtonPressedTime = null;
-                lastGroundedTime = null;
+                
+                StartCoroutine(JumpAnimationTimer());
+                //TopAnimator.Play("Jump Start");
+                //BottomAnimator.Play("Jump Start");
+                //_isJumping = true;
+                //currentJH = JumpHeight;
+                //currentJM = JumpMultiplier;
+                //fallVelocity = 1;
+                //jumps -= 1;
+                //jumpButtonPressedTime = null;
+                //lastGroundedTime = null;
             }
 
 
@@ -282,6 +288,15 @@ public class PlayerMovementScript : MonoBehaviour
                 _isJumping = false;
             }
         }
+
+        TopAnimator.SetBool("IsDashing", _isDashing);
+        BottomAnimator.SetBool("IsDashing", _isDashing);
+        TopAnimator.SetBool("IsJumping", _isJumping);
+        BottomAnimator.SetBool("IsJumping", _isJumping);
+        TopAnimator.SetBool("IsGrounded", _isGrounded);
+        BottomAnimator.SetBool("IsGrounded", _isGrounded);
+        TopAnimator.SetInteger("Jumps", jumps);
+        BottomAnimator.SetInteger("Jumps", jumps);
     }
 
     private void JumpVoid()
@@ -317,6 +332,24 @@ public class PlayerMovementScript : MonoBehaviour
 
         yield return new WaitForSeconds(DashCooldown);
         dashes = MaxDashes;
+    }
+
+    IEnumerator JumpAnimationTimer()
+    {
+        TopAnimator.Play("Jump Start");
+        BottomAnimator.Play("Jump Start");
+        //_jumpAnimation = true;
+        jumpButtonPressedTime = null;
+        yield return new WaitForSeconds(0.399f);
+        //_jumpAnimation = false;
+        Debug.Log("Jump Jump");
+        _isJumping = true;
+        currentJH = JumpHeight;
+        currentJM = JumpMultiplier;
+        fallVelocity = 1;
+        jumps -= 1;
+        lastGroundedTime = null;
+        
     }
 
     private Vector3 AdjustVelocityToSlope(Vector3 velocity)

@@ -86,8 +86,8 @@ public class SpikeShotModule : MonoBehaviour
         _currentAmmoCount = _MaxAmmoCount;
         lr.sharedMaterial.SetColor("_Color", LineColor);
         _isAiming = _WS.IsAiming;
-        
 
+        lastShootTime = _fireRate;
     }
 
 

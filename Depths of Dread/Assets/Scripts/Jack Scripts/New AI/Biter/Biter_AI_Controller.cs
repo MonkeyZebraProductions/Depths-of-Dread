@@ -29,6 +29,8 @@ public class Biter_AI_Controller : MonoBehaviour
 
     public bool justGotHit=false;
 
+    public AudioSource ClickingSfx;
+
     public Biter_AI_State State
     {
         get
@@ -67,6 +69,7 @@ public class Biter_AI_Controller : MonoBehaviour
             State = Biter_AI_State.Chase;
             justGotHit = false;
         }
+
     }
 
     private void OnEnable()
@@ -199,10 +202,17 @@ public class Biter_AI_Controller : MonoBehaviour
                 CurrentDestination = Player.transform;
                 Agent.stoppingDistance = attackDistance;
             }
-
+            //players clicking randomly
+            StartCoroutine(PlaySfx());
             yield return Wait;
         }
 
+    }
+
+    private IEnumerator PlaySfx()
+    {
+        yield return new WaitForSeconds(Random.Range(3f, 10f));
+        ClickingSfx.Play();
     }
 
   

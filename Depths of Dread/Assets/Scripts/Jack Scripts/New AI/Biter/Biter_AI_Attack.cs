@@ -11,6 +11,7 @@ public class Biter_AI_Attack : MonoBehaviour
     public delegate void AttackEvent(PlayerController Target);
     public AttackEvent OnAttack;
     protected Coroutine AttackCoroutine;
+    public AudioSource AttackSfx;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class Biter_AI_Attack : MonoBehaviour
 
         airArmour.RecieveArmourDamage(attackDamage);
         Debug.Log("Attack");
-
+        AttackSfx.Play();
         yield return Wait;
     }
 }

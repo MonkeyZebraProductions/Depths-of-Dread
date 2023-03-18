@@ -109,7 +109,7 @@ public class WeaponSwitching : MonoBehaviour
             prevWeapon = weaponSlotSelected;
             weaponSlotSelected = weaponType;
             WeaponSlots[weaponSlotSelected].SetActive(true);
-            SlotImages[weaponSlotSelected].alpha = 1;
+            SlotImages[weaponSlotSelected].alpha = 0.75f;
             step = 0;
             smoothTime = 0;
         }
