@@ -24,8 +24,10 @@ public class AirArmour : MonoBehaviour
     public Transform Needle;
     public Material AirMat,DialMat;
 
+    //Getting Hit
     private ParticleSystem Sparks;
     public AudioSource SparkSfx,GruntSfx;
+    public Animator HitAnimator;
 
     public CinemachineBrain Brain;
     private CinemachineVirtualCamera Cam;
@@ -44,6 +46,7 @@ public class AirArmour : MonoBehaviour
     private DepthOfField dOF;
     private LensDistortion lD;
 
+    //Cracked Glass Assets
     public List<Image> Cracks;
     private int currentIndex, prevIndex;
     private float crackAlpha = 0;
@@ -164,7 +167,7 @@ public class AirArmour : MonoBehaviour
         {
             currentIndex += 1;
         }
-        
+        HitAnimator.Play("HitA");
         //StartCoroutine(CamaeraShake());
     }
 

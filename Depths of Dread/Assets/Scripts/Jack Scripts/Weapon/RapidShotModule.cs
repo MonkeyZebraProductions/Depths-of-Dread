@@ -179,9 +179,6 @@ public class RapidShotModule : MonoBehaviour
     public void StartShoot()
     {
         isFiring = true;
-        WeaponAnims.Play("FireWeapon");
-        Fire.Play();
-        Blast.Play();
     }
 
     public void EndShoot()
@@ -227,6 +224,9 @@ public class RapidShotModule : MonoBehaviour
             LaserBox.enabled = true;
             LaserRederer.enabled = true;
             Ammo -= 5*Time.deltaTime;
+            WeaponAnims.Play("FireWeapon");
+            //Fire.Play();
+            //Blast.Play();
         }
 
 

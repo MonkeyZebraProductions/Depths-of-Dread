@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: b49fe4605794f0a45b421b30306493c3
+guid: 7695d233ca084e948825bebc4a4fbce4
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ambientCG_Ground054_4K-JPG.001
-    second: {fileID: 2100000, guid: 09c66587d9173a448b508f4fc39dd413, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ambientCG_Rock010_4K-JPG
-    second: {fileID: 2100000, guid: c3abb82a78c5ace48843578a58ff243d, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

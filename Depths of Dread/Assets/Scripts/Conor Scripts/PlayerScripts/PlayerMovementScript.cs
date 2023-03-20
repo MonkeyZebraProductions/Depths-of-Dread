@@ -45,6 +45,7 @@ public class PlayerMovementScript : MonoBehaviour
     public int MaxDashes = 1;
     private int dashes;
     private bool _isDashing, _stopWindow;
+    private WeaponSwitching _wS;
 
     [Header("Jetpack")]
     //Jetpack
@@ -94,6 +95,7 @@ public class PlayerMovementScript : MonoBehaviour
         _jetpackFeul = MaxJetpackFeul;
         Jump = playerInput.actions["Jump"];
         Dash = playerInput.actions["Dash"];
+        _wS = FindObjectOfType<WeaponSwitching>();
     }
 
     void Update()
@@ -124,12 +126,16 @@ public class PlayerMovementScript : MonoBehaviour
         if (_isGrounded)
         {
             lastGroundedTime = Time.time;
+
         }
 
         if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
         {
-            
+            if(!_jumpAnimation)
+            {
                 jumps = MaxJumps;
+            }
+            
             
             fallVelocity = 1;
             if (slopeSlideVelocity != Vector3.zero)
@@ -226,6 +232,8 @@ public class PlayerMovementScript : MonoBehaviour
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps == 1 && _isSliding == false)
             {
                 
+                _jumpAnimation = true;
+                jumps -= 1;
                 StartCoroutine(JumpAnimationTimer());
                 //TopAnimator.Play("Jump Start");
                 //BottomAnimator.Play("Jump Start");
@@ -289,7 +297,15 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
 
-        TopAnimator.SetBool("IsDashing", _isDashing);
+        if(!_wS.IsAiming)
+        {
+           TopAnimator.SetBool("IsDashing", _isDashing);
+        }
+        else
+        {
+            TopAnimator.SetBool("IsDashing", false);
+        }
+        
         BottomAnimator.SetBool("IsDashing", _isDashing);
         TopAnimator.SetBool("IsJumping", _isJumping);
         BottomAnimator.SetBool("IsJumping", _isJumping);
@@ -341,15 +357,14 @@ public class PlayerMovementScript : MonoBehaviour
         //_jumpAnimation = true;
         jumpButtonPressedTime = null;
         yield return new WaitForSeconds(0.399f);
-        //_jumpAnimation = false;
         Debug.Log("Jump Jump");
         _isJumping = true;
         currentJH = JumpHeight;
         currentJM = JumpMultiplier;
         fallVelocity = 1;
-        jumps -= 1;
         lastGroundedTime = null;
-        
+        yield return new WaitForSeconds(0.5f);
+        _jumpAnimation = false;
     }
 
     private Vector3 AdjustVelocityToSlope(Vector3 velocity)
