@@ -12,14 +12,13 @@ public class TriggerUI : MonoBehaviour
     private InputAction Submit;
 
     public GameObject UICanvas;
+    public Animator UIAnimatior;
 
     public UnityEvent TriggerEvent;
 
-    public bool RistrictControl;
+   // public bool RistrictControl;
 
-    public CinemachineInputProvider CIP;
-    public CinemachineBrain CB;
-    public InputActionReference NormalLookAxis, TutorialAxis;
+   
 
     private void Awake()
     {
@@ -29,10 +28,7 @@ public class TriggerUI : MonoBehaviour
 
     private void Update()
     {
-        if(RistrictControl)
-        {
-            CIP = CB.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineInputProvider>();
-        }
+        
         
     }
 
@@ -61,9 +57,14 @@ public class TriggerUI : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
-
-            UICanvas.SetActive(false);
+            StartCoroutine(CloseMessage());
         }
+    }
+
+    private IEnumerator CloseMessage()
+    {
+        UIAnimatior.Play("Message Close");
+        yield return new WaitForSeconds(0.42f);
+        UICanvas.SetActive(false);
     }
 }
