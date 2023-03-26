@@ -114,7 +114,25 @@ public class PlayerMovementScript : MonoBehaviour
 
         GroundRay = new Ray(transform.position, Vector3.down);
         Debug.DrawRay(transform.position, Vector3.down * GroundCheck, Color.blue);
-        _isGrounded = controller.isGrounded;
+        //_isGrounded = controller.isGrounded;
+
+        if(controller.isGrounded==true)
+        {
+            Debug.Log("CC Grounded");
+            if (Physics.Raycast(GroundRay, GroundCheck))
+            {
+                _isGrounded = true;
+                Debug.Log("True Grounded");
+            }
+            else
+            {
+                _isGrounded = false;
+            }
+        }
+        else
+        {
+            _isGrounded = false;
+        }
 
         AdjustedCameraTransformZ = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z);
 
@@ -381,7 +399,8 @@ public class PlayerMovementScript : MonoBehaviour
                 return adjustedVelocity;
             }
 
-            //Debug.Log(hitInfo.collider.name);
+            Debug.Log(hitInfo.collider.name);
+          
         }
 
         return velocity;

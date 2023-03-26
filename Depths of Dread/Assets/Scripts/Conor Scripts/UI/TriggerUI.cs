@@ -61,6 +61,11 @@ public class TriggerUI : MonoBehaviour
         }
     }
 
+    public void CloseVoid()
+    {
+        transform.position = Vector3.zero;
+    }
+
     private IEnumerator CloseMessage()
     {
         UIAnimatior.Play("Message Close");

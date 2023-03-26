@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Length: 25
-  SpawnDistance: 1.5
+  SpawnDistance: 3
   GrappleSpeed: 40
   ZipSpeed: 100
   HangTime: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   IsHooked: 0
   TargetReached: 0
   ObjectGrabbed: 0
-  target: {x: -20.980036, y: 17.060835, z: 45.920795}
+  target: {x: -207.8382, y: 13.519969, z: 106.23501}
 --- !u!114 &-2951738900965043495
 MonoBehaviour:
   m_ObjectHideFlags: 0

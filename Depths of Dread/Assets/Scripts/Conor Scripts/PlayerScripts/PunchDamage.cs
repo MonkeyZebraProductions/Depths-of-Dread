@@ -11,6 +11,7 @@ public class PunchDamage : MonoBehaviour
     {
         if (other.gameObject.tag=="Enemy")
         {
+            Debug.Log("hit");
             other.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(Damage);
             other.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * PunchForce, ForceMode.Impulse);
         }

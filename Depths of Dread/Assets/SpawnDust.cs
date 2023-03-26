@@ -8,6 +8,6 @@ public class SpawnDust : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         SandParticles.Play();
-        Debug.LogError("Poof");
+        //Debug.LogError("Poof");
     }
 }

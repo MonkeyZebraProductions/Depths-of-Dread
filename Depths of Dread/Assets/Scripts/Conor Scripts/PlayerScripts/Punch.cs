@@ -9,6 +9,7 @@ public class Punch : MonoBehaviour
     public GameObject PunchBox, SlamBox;
     public bool SlamUpgrade;
     public float PunchDelay, PunchLasting, PunchCooldown;
+    public Animator TopPunchAnim,BottomPunchAnim;
     private bool _canPunch;
 
     private PlayerMovementScript _pMS;
@@ -45,6 +46,8 @@ public class Punch : MonoBehaviour
     {
         _pMS.CanMove = false;
         _WS.IsAiming = false;
+        TopPunchAnim.Play("PunchIn");
+        BottomPunchAnim.Play("PunchIn");
         yield return new WaitForSeconds(PunchDelay);
         if (SlamUpgrade)
         {

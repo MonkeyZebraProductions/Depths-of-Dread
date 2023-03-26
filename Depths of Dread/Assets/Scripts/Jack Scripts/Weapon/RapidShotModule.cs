@@ -88,7 +88,7 @@ public class RapidShotModule : MonoBehaviour
         lr.sharedMaterial.SetColor("_Color", LineColor);
         Blast = GetComponentInChildren<ParticleSystem>();
 
-        LaserRederer = LaserBox.gameObject.GetComponent<MeshRenderer>();
+        //LaserRederer = LaserBox.gameObject.GetComponent<MeshRenderer>();
         LaserRederer.enabled = false;
         lastShootTime = _fireRate;
     }
