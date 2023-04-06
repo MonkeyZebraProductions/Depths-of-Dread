@@ -120,7 +120,7 @@ MonoBehaviour:
   IsHooked: 0
   TargetReached: 0
   ObjectGrabbed: 0
-  target: {x: -207.8382, y: 13.519969, z: 106.23501}
+  target: {x: 53.36195, y: 20.735504, z: 158.69604}
 --- !u!114 &-2951738900965043495
 MonoBehaviour:
   m_ObjectHideFlags: 0

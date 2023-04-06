@@ -26,6 +26,7 @@ public class GrappleSystem : MonoBehaviour
     private PlayerMovementScript _pMS;
     public Transform SpawnPoint;
     private CharacterController controller;
+    
 
     //bool set up
     public bool _isAiming;
@@ -39,6 +40,8 @@ public class GrappleSystem : MonoBehaviour
     public float LaunchForce;
     public Material GrappleMat;
     public float AlphaAmount=0.2f;
+    public float HookMultiplyer = 2;
+    private float _currentHookMultiplier;
 
     public AudioSource HookSfx;
 
@@ -55,6 +58,7 @@ public class GrappleSystem : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         HorizSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed;
         VertSpeed = AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed;
+        _currentHookMultiplier = 1;
     }
 
     // Update is called once per frame
@@ -104,11 +108,11 @@ public class GrappleSystem : MonoBehaviour
         {
             //moves the Player if attatched to a point
             _moveToGrapple = true;
-            moveVector = VisibleAnchor.target - transform.position;
+            
             _pMS.CanMove = false;
         }
-
-        if(VisibleAnchor.transform.position==VisibleAnchor.target)
+        moveVector = VisibleAnchor.target - transform.position;
+        if (VisibleAnchor.transform.position==VisibleAnchor.target)
         {
             BringBack();
         }
@@ -116,7 +120,7 @@ public class GrappleSystem : MonoBehaviour
         
 
         //destroys hook once it gets close to the player
-        if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance)
+        if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance*_currentHookMultiplier)
         {
             if (VisibleAnchor.ObjectGrabbed)
             {
@@ -146,6 +150,12 @@ public class GrappleSystem : MonoBehaviour
         if (_moveToGrapple)
         {
             controller.Move(moveVector.normalized * Time.deltaTime * _gH.ZipSpeed);
+            //rigidbody.AddForce(moveVector.normalized * _gH.ZipSpeed * 100, ForceMode.Impulse);
+            _currentHookMultiplier = HookMultiplyer;
+        }
+        else
+        {
+            _currentHookMultiplier = 1;
         }
     }
 
