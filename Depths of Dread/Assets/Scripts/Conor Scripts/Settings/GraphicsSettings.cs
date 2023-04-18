@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Audio;
 
 public class GraphicsSettings : MonoBehaviour
 {
     public TMP_Dropdown QualityDropdown,ResolutionDropdown;
-    public Slider BrightnessSlider;
+    public Slider BrightnessSlider,MasterSlider,MusicSlider,SfxSlider;
+    public AudioMixer Mixer;
     public PostProcessVolume PP;
 
     private ColorGrading cg;
@@ -49,9 +51,12 @@ public class GraphicsSettings : MonoBehaviour
         }
         ResolutionDropdown.RefreshShownValue();
 
-        float brightness = PlayerPrefs.GetInt("GameBrightness");
+        float brightness = PlayerPrefs.GetFloat("GameBrightness");
         PP.profile.TryGetSettings(out cg);
         cg.postExposure.value = brightness;
+        MasterSlider.value= PlayerPrefs.GetFloat("MasterVolume");
+        MusicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        SfxSlider.value = PlayerPrefs.GetFloat("SfxVolume");
     }
 
     public void SetResolution(int resolutionIndex)
@@ -71,7 +76,12 @@ public class GraphicsSettings : MonoBehaviour
         PP.profile.TryGetSettings(out cg);
         cg.postExposure.value = BrightnessSlider.value;
         PlayerPrefs.SetFloat("GameBrightness",cg.postExposure.value);
-
+        Mixer.SetFloat("MasterVolume", MasterSlider.value);
+        PlayerPrefs.SetFloat("MasterVolume", MasterSlider.value);
+        Mixer.SetFloat("MusicVolume", MusicSlider.value);
+        PlayerPrefs.SetFloat("MusicVolume", MusicSlider.value);
+        Mixer.SetFloat("SfxVolume", MusicSlider.value);
+        PlayerPrefs.SetFloat("SfxVolume", MusicSlider.value);
     }
     public void SetBrightness()
     {

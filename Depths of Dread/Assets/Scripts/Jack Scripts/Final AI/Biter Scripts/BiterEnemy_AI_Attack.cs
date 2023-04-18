@@ -14,10 +14,12 @@ public class BiterEnemy_AI_Attack : MonoBehaviour
     public AudioSource AttackSfx;
     public bool hasAttacked;
 
+    private BiterEnemy_AI_Controller b_A_C;
     // Start is called before the first frame update
     void Start()
     {
         hasAttacked = false;
+        b_A_C = GetComponentInParent<BiterEnemy_AI_Controller>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class BiterEnemy_AI_Attack : MonoBehaviour
     private IEnumerator Attack(PlayerMovementScript playerMovementScript)
     {
         WaitForSeconds Wait = new WaitForSeconds(attackDelay);
+        b_A_C.BiterAnimator.Play("Attack");
         airArmour.RecieveArmourDamage(attackDamage);
         hasAttacked = true;
         Debug.Log("Attack");

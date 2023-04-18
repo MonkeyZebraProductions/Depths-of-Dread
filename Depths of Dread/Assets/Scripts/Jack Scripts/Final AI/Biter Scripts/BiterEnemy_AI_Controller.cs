@@ -45,6 +45,8 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     public bool justGotHit = false;
     public AudioSource ClickingSfx;
     public float attackingDistance = 4f;
+
+    public Animator BiterAnimator;
      void Awake()
     {
         BiterAgent = GetComponent<NavMeshAgent>();
@@ -101,7 +103,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
         {
             SwitchState(chaseState);
         }
-       
+        BiterAnimator.SetBool("ChaseState", true);
 
         Debug.Log("Chase");
 
@@ -111,7 +113,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     {
         SwitchState(defaultState);
         Debug.Log("Default");
-
+        BiterAnimator.SetBool("ChaseState", false);
     }
 
     public void SwitchState(Biter_AI_BaseState state)

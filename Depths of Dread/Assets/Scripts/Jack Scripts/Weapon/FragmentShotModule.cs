@@ -51,6 +51,7 @@ public class FragmentShotModule : MonoBehaviour
     public RaycastHit WeaponHit;
 
     public Collider ShotgunBox;
+    public Light ShotgunLight;
 
     public Animator WeaponAnims;
 
@@ -82,6 +83,7 @@ public class FragmentShotModule : MonoBehaviour
         _currentAmmoCount = _MaxAmmoCount;
 
         ShotgunBox.enabled = false;
+        ShotgunLight.enabled = false;
         _isAiming = _WS.IsAiming;
         //_WS.IsFiring = isFiring;
         lr.sharedMaterial.SetColor("_Color", LineColor);
@@ -227,8 +229,10 @@ public class FragmentShotModule : MonoBehaviour
     IEnumerator ShotgunCoroutine()
     {
         ShotgunBox.enabled = true;
+        ShotgunLight.enabled = true;
         yield return new WaitForSeconds(0.2f);
         ShotgunBox.enabled = false;
+        ShotgunLight.enabled = false;
     }
 
     public void ReloadFunction()

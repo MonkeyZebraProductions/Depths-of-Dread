@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using VolumetricLines;       
 
 public class GrappleSystem : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class GrappleSystem : MonoBehaviour
     private PlayerMovementScript _pMS;
     public Transform SpawnPoint;
     private CharacterController controller;
+    public VolumetricLineBehavior VLB;
     
 
     //bool set up
@@ -64,9 +66,9 @@ public class GrappleSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(SpawnPoint.position, SpawnPoint.forward * 20, Color.green);
+        
 
-        if(!_WS.IsAiming && GrabbedObject != null)
+        if (!_WS.IsAiming && GrabbedObject != null)
         {
             GrabbedObject.GetComponent<MoveOutOfWall>().grappled = false;
             GrabbedObject.GetComponent<MoveOutOfWall>().moveback = false;
@@ -89,6 +91,7 @@ public class GrappleSystem : MonoBehaviour
             }
             else
             {
+                
                 if (GrabbedObject != null)
                 {
                     GrabbedObject.GetComponent<MoveOutOfWall>().grappled = false;
@@ -144,6 +147,7 @@ public class GrappleSystem : MonoBehaviour
             Destroy(VisibleAnchor.gameObject);
             _moveToGrapple = false;
             _pMS.CanMove = true;
+            VLB.gameObject.SetActive(false);
             AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = VertSpeed;
             AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = HorizSpeed;
         }
@@ -157,11 +161,14 @@ public class GrappleSystem : MonoBehaviour
         {
             _currentHookMultiplier = 1;
         }
+        VLB.EndPos = new Vector3(0, 0, Vector3.Distance(VisibleAnchor.transform.position, transform.position)-3f);
+
     }
 
     void SpawnHook()
     {
         //spawn Grapple Hook if not visible or Grabbing
+        VLB.gameObject.SetActive(true);
         _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
         Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
         VisibleAnchor = FindObjectOfType<GrapplingHook>();

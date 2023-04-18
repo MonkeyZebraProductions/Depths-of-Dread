@@ -57,6 +57,7 @@ public class RapidShotModule : MonoBehaviour
 
     private ParticleSystem Blast;
     private AirArmour _aA;
+    public Light Glow;
 
     // Start is called before the first frame update
     void Awake()
@@ -187,6 +188,7 @@ public class RapidShotModule : MonoBehaviour
         lr.sharedMaterial.SetColor("_Color", LineColor);
         LaserBox.enabled = false;
         LaserRederer.enabled = false;
+        Glow.enabled = false;
     }
 
     public void WeaponShoot()
@@ -200,6 +202,7 @@ public class RapidShotModule : MonoBehaviour
             {
                 LaserBox.enabled = false;
                 LaserRederer.enabled = false;
+                Glow.enabled = false;
             if (_currentAmmoCount > 0 && lastShootTime>_fireRate)
                 {
                     ReloadFunction();
@@ -223,6 +226,7 @@ public class RapidShotModule : MonoBehaviour
         {
             LaserBox.enabled = true;
             LaserRederer.enabled = true;
+            Glow.enabled = true;
             Ammo -= 5*Time.deltaTime;
             WeaponAnims.Play("FireWeapon");
             //Fire.Play();

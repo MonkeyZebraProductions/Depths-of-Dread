@@ -98,6 +98,7 @@ public class AirArmour : MonoBehaviour
         AirBar1.value = AirBar2.value = MaxAir - air;
 
         Muffle.SetFloat("CutoffFreq", _currentCutoff);
+        
         _currentCutoff = MapFunction(_currentCutoffPercent, 0, 100, 0, 3500);
 
         if (air<MaxAir/4)

@@ -39,6 +39,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     [Header("Dashing")]
     //Dashing
+    public AudioSource DashSfx,DashAvailable;
     public float DashSpeed = 5f;
     public float DashTime, DashCooldown = 1f;
     public float DashDecrease = 1f;
@@ -270,6 +271,7 @@ public class PlayerMovementScript : MonoBehaviour
             if (Dash.triggered && dashes >= 1 && DashEnabled)
             {
                 StartCoroutine(DashTimer());
+                DashSfx.Play();
             }
 
             if (_isJumping)
@@ -366,6 +368,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         yield return new WaitForSeconds(DashCooldown);
         dashes = MaxDashes;
+        DashAvailable.Play();
     }
 
     IEnumerator JumpAnimationTimer()
