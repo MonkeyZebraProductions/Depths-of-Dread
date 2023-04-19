@@ -7,6 +7,7 @@ using Cinemachine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.PostProcessing;
 
+
 public class AirArmour : MonoBehaviour
 {
     public float MaxAir = 100;
@@ -23,6 +24,7 @@ public class AirArmour : MonoBehaviour
     public Slider AirBar1, AirBar2;
     public Transform Needle;
     public Material AirMat,DialMat;
+    public ParticleSystem LeftBubbles, RightBubbles;
 
     //Getting Hit
     private ParticleSystem Sparks;
@@ -126,7 +128,12 @@ public class AirArmour : MonoBehaviour
             }
         }
 
-        if(air<=0)
+        var leftEmmission = LeftBubbles.emission;
+        var rightEmission = RightBubbles.emission;
+
+        leftEmmission.rateOverTime = rightEmission.rateOverTime = MapFunction(air, MaxAir, 0, 0, 20);
+
+        if (air<=0)
         {
             //Kill
             Destroy(this.gameObject);
@@ -140,7 +147,6 @@ public class AirArmour : MonoBehaviour
         _currentVolume = MapFunction(air, MaxAir, MaxAir * 0.25f, MinVolume, MaxVolume);
         Breathing.SetFloat("BreathingVolume", _currentVolume);
 
-        
         Breathing.SetFloat("BreathingPitch", _currentPitch);
 
         Breathing.SetFloat("BreathingLowPass", _currentBreathingCutoff);

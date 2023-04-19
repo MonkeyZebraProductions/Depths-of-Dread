@@ -82,7 +82,9 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("Sounds")]
     public AudioSource Walk;
 
+    [Header("Animator")]
     public Animator TopAnimator, BottomAnimator;
+   
 
     private void Awake()
     {
@@ -240,13 +242,21 @@ public class PlayerMovementScript : MonoBehaviour
                 _currentSpeed = PlayerSpeed;
             }
             //rotate player parts
-            Quaternion TopRotate = Quaternion.Euler(-_cMO.m_Offset.x, cameraTransform.rotation.eulerAngles.y - _cMO.m_Offset.y, 0f);
-            TopPart.rotation = TopRotate;
-            Quaternion GunRotate = Quaternion.Euler(cameraTransform.rotation.eulerAngles.x, 0f, 0f);
-            Gun.localRotation = GunRotate;
+            
             float targetAngel = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
             float Botangle = Mathf.SmoothDampAngle(BottomPart.eulerAngles.y, targetAngel, ref smoothVelocity, rotationSmoothing);
             BottomPart.rotation = Quaternion.Euler(0f, Botangle, 0f);
+            if(_wS.IsAiming)
+            {
+                Quaternion TopRotate = Quaternion.Euler(-_cMO.m_Offset.x, cameraTransform.rotation.eulerAngles.y - _cMO.m_Offset.y, 0f);
+                TopPart.rotation = TopRotate;
+                Quaternion GunRotate = Quaternion.Euler(cameraTransform.rotation.eulerAngles.x, 0f, 0f);
+                Gun.localRotation = GunRotate;
+            }
+            else
+            {
+                TopPart.rotation = BottomPart.rotation;
+            }
 
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod && jumps == 1 && _isSliding == false)
             {

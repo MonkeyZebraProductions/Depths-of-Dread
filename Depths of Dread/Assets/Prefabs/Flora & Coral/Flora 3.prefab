@@ -98,3 +98,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   MaxAngle: 30
+  Step: 1.5

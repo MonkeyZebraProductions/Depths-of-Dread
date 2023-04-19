@@ -44,6 +44,7 @@ public class GrappleSystem : MonoBehaviour
     public float AlphaAmount=0.2f;
     public float HookMultiplyer = 2;
     private float _currentHookMultiplier;
+    public bool GrappleHookActive;
 
     public AudioSource HookSfx;
 
@@ -107,7 +108,7 @@ public class GrappleSystem : MonoBehaviour
             }
         }
 
-        if (VisibleAnchor.IsHooked)
+        if (VisibleAnchor.IsHooked && GrappleHookActive)
         {
             //moves the Player if attatched to a point
             _moveToGrapple = true;
@@ -184,6 +185,11 @@ public class GrappleSystem : MonoBehaviour
         _pMS.CanMove = false;
         AimCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = 0;
         AimCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = 0;
+    }
+
+    public void ActivateHeavyRetractor()
+    {
+        GrappleHookActive = true;
     }
 }
 
