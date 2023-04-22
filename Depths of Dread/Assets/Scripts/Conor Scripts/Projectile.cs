@@ -24,18 +24,19 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Enemy")
-        {
-            other.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(Damage);
-            b_A_C = other.GetComponent<BiterEnemy_AI_Controller>();
-            b_A_C.BiterAnimator.Play(HitAnimationName);
-            //other.gameObject.GetComponent<Biter_AI_Controller>().State = Biter_AI_State.Chase;
-        }
+       
         if (other.gameObject.tag!="IgnoreProjectileCollisions")
         {
             //Debug.Log(other.gameObject);
             if(!GoThroughEnemies)
             {
+                if (other.gameObject.tag == "Enemy")
+                {
+                    other.gameObject.GetComponent<EnemyUnitHealth>().TakeDamage(Damage);
+                    b_A_C = other.GetComponent<BiterEnemy_AI_Controller>();
+                    b_A_C.BiterAnimator.Play(HitAnimationName);
+                    //other.gameObject.GetComponent<Biter_AI_Controller>().State = Biter_AI_State.Chase;
+                }
                 Destroy(this.gameObject);
             }
             else

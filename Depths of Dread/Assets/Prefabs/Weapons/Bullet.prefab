@@ -131,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 125
   Damage: 1
+  GoThroughEnemies: 0
+  HitAnimationName: Hit1
 --- !u!114 &6275530497755289157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +151,7 @@ MonoBehaviour:
   m_endPos: {x: 0, y: 0, z: 1}
   m_lineColor: {r: 1, g: 0.45270634, b: 0, a: 0}
   m_lineWidth: 2.33
-  m_lightSaberFactor: 0.655
+  m_lightSaberFactor: 0.734
 --- !u!108 &8172232749707220323
 Light:
   m_ObjectHideFlags: 0

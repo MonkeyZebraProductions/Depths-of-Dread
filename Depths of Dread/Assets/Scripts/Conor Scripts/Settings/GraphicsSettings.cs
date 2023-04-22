@@ -80,8 +80,8 @@ public class GraphicsSettings : MonoBehaviour
         PlayerPrefs.SetFloat("MasterVolume", MasterSlider.value);
         Mixer.SetFloat("MusicVolume", MusicSlider.value);
         PlayerPrefs.SetFloat("MusicVolume", MusicSlider.value);
-        Mixer.SetFloat("SfxVolume", MusicSlider.value);
-        PlayerPrefs.SetFloat("SfxVolume", MusicSlider.value);
+        Mixer.SetFloat("SfxVolume", SfxSlider.value);
+        PlayerPrefs.SetFloat("SfxVolume", SfxSlider.value);
     }
     public void SetBrightness()
     {
