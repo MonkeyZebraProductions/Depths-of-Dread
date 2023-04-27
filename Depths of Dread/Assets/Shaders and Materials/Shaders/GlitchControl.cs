@@ -13,7 +13,7 @@ public class GlitchControl : MonoBehaviour
     void Awake()
     {
         //hologramMaterial = GetComponent<Renderer>().material;
-        hologramMaterial.SetFloat("_GlowIntensity", 0.75f);
+        hologramMaterial.SetFloat("_GlowIntensity", 0.25f);
     }
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class GlitchControl : MonoBehaviour
             {
                 //Do Glitch
                 float originalGlowIntensity = hologramMaterial.GetFloat("_GlowIntensity");
-                hologramMaterial.SetFloat("_GlowIntensity", originalGlowIntensity * Random.Range(0.14f, 0.44f));
+                hologramMaterial.SetFloat("_GlowIntensity", Random.Range(0.14f, 1f));
                 yield return new WaitForSeconds(Random.Range(0.05f, 0.1f));
                 hologramMaterial.SetFloat("_GlowIntensity", originalGlowIntensity);
             }
