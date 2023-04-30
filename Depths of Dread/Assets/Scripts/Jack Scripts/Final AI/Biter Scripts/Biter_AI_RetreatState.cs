@@ -3,8 +3,9 @@ using UnityEngine;
 
  public class Biter_AI_RetreatState : Biter_AI_BaseState
 {
-    public override void EnterState(BiterEnemy_AI_Controller biterEnemy_AI_Controller)
+    public override void EnterState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
+        /*
         if (biterEnemy_AI_Controller.isLeader)
         {
             RetreatAction(biterEnemy_AI_Controller);
@@ -15,10 +16,10 @@ using UnityEngine;
         {
             biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.Leader.BiterAgent.transform.position + biterEnemy_AI_Controller.offset);
         }
-
+        */
 
     }
-    public override void UpdateState(BiterEnemy_AI_Controller biterEnemy_AI_Controller)
+    public override void UpdateState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
         if (biterEnemy_AI_Controller.isLeader)
         {
@@ -39,7 +40,7 @@ using UnityEngine;
 
 
     }
-    public override void ExitState(BiterEnemy_AI_Controller biterEnemy_AI_Controller)
+    public override void ExitState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
      
     }

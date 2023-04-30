@@ -16,16 +16,21 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     public Biter_AI_RetreatState retreatState = new Biter_AI_RetreatState();
     public Biter_AI_AttackState attackState = new Biter_AI_AttackState();
 
-    public BiterEnemy_AI_LineOfSight biterEnemy_AI_LineOfSight;
-    public BiterEnemy_AI_Attack biterEnemy_AI_Attack;
+    public BiterEnemy_AI_LineOfSight lineOfSight;
+    public BiterEnemy_AI_AttackRadius attackRadius;
 
     public PlayerMovementScript playerMovementScript;
     public GameObject player;
     public NavMeshAgent BiterAgent;
     public Vector3 nextLocation;
     public float StateUpdateRate = 0.1f;
+
     public float wanderLocationRadius = 4f;
     public float wanderMoveSpeedMultipler = 0.5f;
+
+    public BigBadPatrolPath patrolPath;
+    public int patrolWaypointIndex = 0;
+
     public float attackDistance = 2.5f;
     public float wanderDistance = 10f;
     public float retreatDistance = 10f;
@@ -35,11 +40,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
 
     public bool isLeader;
     public bool isFollower;
-    public BiterEnemy_AI_Controller Leader;
-    public BiterEnemy_AI_Controller Follower1;
-    public BiterEnemy_AI_Controller Follower2;
-    public BiterEnemy_AI_Controller Follower3;
-    public BiterEnemy_AI_Controller Follower4;
+    public Transform Leader;
     public Vector3 offset;
 
     public bool justGotHit = false;
@@ -50,9 +51,29 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
      void Awake()
     {
         BiterAgent = GetComponent<NavMeshAgent>();
-        
-        biterEnemy_AI_LineOfSight.OnPlayerSightFound += HandleGainSight;
-        biterEnemy_AI_LineOfSight.OnPlayerSightLost += HandleLostSight;
+
+        lineOfSight = GetComponentInChildren<BiterEnemy_AI_LineOfSight>();
+        attackRadius = GetComponentInChildren<BiterEnemy_AI_AttackRadius>();
+
+        lineOfSight.OnPlayerSightFound += HandleGainSight;
+        lineOfSight.OnPlayerSightLost += HandleLostSight;
+
+        if (gameObject.tag == "Biter Leader")
+        {
+            //Debug.Log("Biter Leader");
+            isLeader = true;
+            isFollower = false;
+            Leader = gameObject.transform;
+            offset = Leader.transform.position;
+        }
+
+        if (gameObject.tag == "Biter Follower")
+        {
+            //Debug.Log("Biter Leader");
+            isLeader = false;
+            isFollower = true;
+            offset = gameObject.transform.position - Leader.transform.position;
+        }
 
         if (Wandering)
         {
@@ -62,16 +83,6 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
         if (Patroling)
         {
             defaultState = patrolState;
-        }
-
-        if (isFollower)
-        {
-            offset = gameObject.transform.position - Leader.transform.position;
-        }
-
-        if (isLeader)
-        {
-            offset = gameObject.transform.position;
         }
 
         currentState = defaultState;
@@ -85,7 +96,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     {
         currentStateName = currentState.ToString();
 
-        currentState.UpdateState(this);
+        currentState.UpdateState(this, attackRadius);
 
         if (justGotHit)
         {
@@ -119,7 +130,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     public void SwitchState(Biter_AI_BaseState state)
     {
         currentState = state;
-        state.EnterState(this);
+        state.EnterState(this, attackRadius);
     }
 
     private IEnumerator PlaySfx()

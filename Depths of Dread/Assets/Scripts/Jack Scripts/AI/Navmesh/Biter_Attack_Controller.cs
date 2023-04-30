@@ -5,55 +5,51 @@ using System;
 
 public class Biter_Attack_Controller : MonoBehaviour
 {
-    [SerializeField]
-    private AirArmour airArmour;
-    private float lastAttack = 0f;
+    public BigBadEnemy_AI_Controller controller;
+    public Collider AttackRadiusCollider;
+    public AirArmour airArmour;
+    public bool Attacking;
+    public float nextAttack;
     public float attackRate;
-
-    private float nextDamage;
-    public float Damage;
     public GameObject player;
-    public bool playerInAttackRange = false;
+    public int Damage = 10;
+    public AudioSource AttackSfx;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
+        Attacking = false;
         airArmour = GameObject.FindGameObjectWithTag("Player").GetComponent<AirArmour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerInAttackRange && Time.time > nextDamage+attackRate)
+        if (Attacking && Time.time > nextAttack + attackRate)
         {
             player.GetComponent<AirArmour>().RecieveArmourDamage(Damage);
-            nextDamage = Time.time;
-           
+            Debug.Log("Attack Works");
+            nextAttack = Time.time;
         }
     }
 
-    private void OnTriggerEnter(Collider attack)
+
+    private void OnTriggerEnter(Collider other)
     {
-      
-        if(attack.tag == "Player")
+        if (other.tag == "Player")
         {
-            player = attack.gameObject;
-            playerInAttackRange = true;
+            player = other.gameObject;
+            Attacking = true;
+            controller.SwitchState(controller.attackState);
         }
     }
 
-    private void OnTriggerExit(Collider attack)
+    private void OnTriggerExit(Collider other)
     {
-        if (attack.tag == "Player")
+        if (other.tag == "Player")
         {
-        
-            playerInAttackRange = false;
-
+            Attacking = false;
+            controller.SwitchState(controller.chaseState);
         }
     }
-
-
-    
-
-   
 }
