@@ -59,6 +59,8 @@ public class RapidShotModule : MonoBehaviour
     private AirArmour _aA;
     public Light Glow;
 
+    public GameObject WeaponBackgroundGlow;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -92,6 +94,8 @@ public class RapidShotModule : MonoBehaviour
         //LaserRederer = LaserBox.gameObject.GetComponent<MeshRenderer>();
         LaserRederer.enabled = false;
         lastShootTime = _fireRate;
+
+        WeaponBackgroundGlow.SetActive(false);
     }
 
     // Update is called once per frame
@@ -151,6 +155,7 @@ public class RapidShotModule : MonoBehaviour
     {
         AimCamera.Priority = PriorityChanger;
         _isAiming = true;
+       
 
     }
 
@@ -180,6 +185,8 @@ public class RapidShotModule : MonoBehaviour
     public void StartShoot()
     {
         isFiring = true;
+        WeaponBackgroundGlow.SetActive(true);
+
     }
 
     public void EndShoot()
@@ -189,6 +196,8 @@ public class RapidShotModule : MonoBehaviour
         LaserBox.enabled = false;
         LaserRederer.enabled = false;
         Glow.enabled = false;
+        WeaponBackgroundGlow.SetActive(false);
+
     }
 
     public void WeaponShoot()
@@ -203,6 +212,8 @@ public class RapidShotModule : MonoBehaviour
                 LaserBox.enabled = false;
                 LaserRederer.enabled = false;
                 Glow.enabled = false;
+                WeaponBackgroundGlow.SetActive(false);
+
             if (_currentAmmoCount > 0 && lastShootTime>_fireRate)
                 {
                     ReloadFunction();
@@ -229,6 +240,7 @@ public class RapidShotModule : MonoBehaviour
             Glow.enabled = true;
             Ammo -= 5*Time.deltaTime;
             WeaponAnims.Play("FireWeapon");
+          
             //Fire.Play();
             //Blast.Play();
         }

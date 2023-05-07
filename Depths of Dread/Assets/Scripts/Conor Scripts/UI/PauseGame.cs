@@ -13,6 +13,9 @@ public class PauseGame : MonoBehaviour
     public bool _isPasued;
     private UnderWaterEffect uWE;
     private WeaponSwitching wS;
+    public AudioSource StageOneTheme;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,8 @@ public class PauseGame : MonoBehaviour
             wS.enabled = false;
             PostProcessing.SetActive(false);
             PauseCanvas.SetActive(true);
+            StageOneTheme.Pause();
+
         }
         else
         {
@@ -61,6 +66,7 @@ public class PauseGame : MonoBehaviour
             wS.enabled = true;
             PostProcessing.SetActive(true);
             PauseCanvas.SetActive(false);
+            StageOneTheme.Play();
         }
     }
 }

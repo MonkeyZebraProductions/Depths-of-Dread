@@ -3,43 +3,31 @@ using UnityEngine;
 
  public class Biter_AI_RetreatState : Biter_AI_BaseState
 {
+    private int retreatDistance = 5;
     public override void EnterState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
-        /*
-        if (biterEnemy_AI_Controller.isLeader)
-        {
-            RetreatAction(biterEnemy_AI_Controller);
-            biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.nextLocation);
-        }
-
-        if (biterEnemy_AI_Controller.isFollower)
-        {
-            biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.Leader.BiterAgent.transform.position + biterEnemy_AI_Controller.offset);
-        }
-        */
+        //Steer
+        biterEnemy_AI_Controller.BiterAgent.speed = 1.75f;
+        biterEnemy_AI_Controller.BiterAgent.angularSpeed = 60f;
+        biterEnemy_AI_Controller.BiterAgent.acceleration = 4f;
+        biterEnemy_AI_Controller.BiterAgent.stoppingDistance = 5f;
+        biterEnemy_AI_Controller.BiterAgent.autoBraking = false;
 
     }
     public override void UpdateState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
-        if (biterEnemy_AI_Controller.isLeader)
+        biterEnemy_AI_Controller.BiterAgent.destination = (biterEnemy_AI_Controller.player.transform.position);
+        biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.BiterAgent.destination);
+
+        if (biterEnemy_AI_Controller.BiterAgent.remainingDistance <= 1)
         {
-            if (biterEnemy_AI_Controller.BiterAgent.remainingDistance < 1f)
-            {
-                biterEnemy_AI_Controller.SwitchState(biterEnemy_AI_Controller.chaseState);
-            }
+            biterEnemy_AI_Controller.SwitchState(biterEnemy_AI_Controller.chaseState);
         }
 
-        if (biterEnemy_AI_Controller.isFollower)
-        {
-            if (biterEnemy_AI_Controller.BiterAgent.remainingDistance < 1f)
-            {
-                biterEnemy_AI_Controller.SwitchState(biterEnemy_AI_Controller.chaseState);
-            }
-        }
-
-
+        
 
     }
+
     public override void ExitState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
      
@@ -50,5 +38,6 @@ using UnityEngine;
         Vector3 random = Random.insideUnitSphere * biterEnemy_AI_Controller.retreatDistance;
         biterEnemy_AI_Controller.nextLocation = biterEnemy_AI_Controller.playerMovementScript.transform.position + random;
     }
+
 
 }

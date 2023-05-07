@@ -30,6 +30,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
 
     public BigBadPatrolPath patrolPath;
     public int patrolWaypointIndex = 0;
+    public int maxPatrolWaypointsNumber = 0;
 
     public float attackDistance = 2.5f;
     public float wanderDistance = 10f;
@@ -48,7 +49,12 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     public float attackingDistance = 4f;
 
     public Animator BiterAnimator;
-     void Awake()
+
+    public BiterEnemy_AI_Controller biter1, biter2, biter3, biter4;
+
+    public  List<BiterEnemy_AI_Controller> Biters = new List<BiterEnemy_AI_Controller>();
+    public float RadiusAroundPlayer = 1;
+    void Awake()
     {
         BiterAgent = GetComponent<NavMeshAgent>();
 
@@ -58,13 +64,15 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
         lineOfSight.OnPlayerSightFound += HandleGainSight;
         lineOfSight.OnPlayerSightLost += HandleLostSight;
 
+        maxPatrolWaypointsNumber = patrolPath.waypoints.Count;
+
         if (gameObject.tag == "Biter Leader")
         {
             //Debug.Log("Biter Leader");
             isLeader = true;
             isFollower = false;
             Leader = gameObject.transform;
-            offset = Leader.transform.position;
+            offset = Vector3.zero;
         }
 
         if (gameObject.tag == "Biter Follower")
@@ -104,7 +112,15 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
             justGotHit = false;
         }
 
-       
+        if (currentState == chaseState)
+        {
+            for (int i = 0; i < Biters.Count; i++)
+            {
+                Biters[i].SwitchState(chaseState);
+            }
+        }
+
+
 
     }
 
@@ -113,6 +129,7 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
         if(currentState != retreatState)
         {
             SwitchState(chaseState);
+
         }
         BiterAnimator.SetBool("ChaseState", true);
 
@@ -140,6 +157,10 @@ public class BiterEnemy_AI_Controller : MonoBehaviour
     }
 
 
+    public void MoveIntoPosition(Vector3 position)
+    {
+        BiterAgent.SetDestination(position);
+    }
 
-
+   
 }

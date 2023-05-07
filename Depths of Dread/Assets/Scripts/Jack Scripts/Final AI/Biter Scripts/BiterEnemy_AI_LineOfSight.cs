@@ -18,12 +18,14 @@ public class BiterEnemy_AI_LineOfSight : MonoBehaviour
     public float LineOfSightUpdate = 1f;
     private Coroutine CheckForLineOfSightCoroutine;
 
+    public BiterEnemy_AI_LineOfSight biter1, biter2, biter3, biter4;
+
     private void Awake()
     {
         Collider = GetComponent<SphereCollider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         PlayerMovementScript playerMovementScript;
         if (other.TryGetComponent<PlayerMovementScript>(out playerMovementScript))
@@ -34,11 +36,13 @@ public class BiterEnemy_AI_LineOfSight : MonoBehaviour
             if (CheckLineOfSight(playerMovementScript))
             {
                 CheckForLineOfSightCoroutine = StartCoroutine(CheckLineOfSightCoroutine(playerMovementScript));
+                
+                
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         PlayerMovementScript playerMovementScript;
 
@@ -49,13 +53,14 @@ public class BiterEnemy_AI_LineOfSight : MonoBehaviour
             {
                 StopCoroutine(CheckForLineOfSightCoroutine);
                 CheckForLineOfSightCoroutine = StartCoroutine(LineOfSightDelayLossCoroutine(playerMovementScript));
+                
 
             }
         }
     }
 
 
-    private IEnumerator CheckLineOfSightCoroutine(PlayerMovementScript playerMovementScript)
+    public IEnumerator CheckLineOfSightCoroutine(PlayerMovementScript playerMovementScript)
     {
         WaitForSeconds Wait = new WaitForSeconds(0.1f);
 
@@ -94,7 +99,6 @@ public class BiterEnemy_AI_LineOfSight : MonoBehaviour
         WaitForSeconds Wait = new WaitForSeconds(20f);
         CheckLineOfSight(playerMovementScript);
         yield return Wait;
-
 
     }
 

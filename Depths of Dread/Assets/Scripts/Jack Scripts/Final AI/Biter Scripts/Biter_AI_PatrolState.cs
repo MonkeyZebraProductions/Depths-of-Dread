@@ -12,24 +12,21 @@ public class Biter_AI_PatrolState : Biter_AI_BaseState
         biterEnemy_AI_Controller.BiterAgent.acceleration = 8f;
         biterEnemy_AI_Controller.BiterAgent.stoppingDistance = 0f;
         biterEnemy_AI_Controller.BiterAgent.autoBraking = false;
+
+        //biterEnemy_AI_Controller.patrolWaypointIndex = 5;
+        biterEnemy_AI_Controller.patrolWaypointIndex = Random.Range(0, biterEnemy_AI_Controller.maxPatrolWaypointsNumber);
+
     }
     public override void UpdateState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)
     {
-        if (biterEnemy_AI_Controller.isLeader)
-        {
-            if (!biterEnemy_AI_Controller.BiterAgent.pathPending && biterEnemy_AI_Controller.BiterAgent.remainingDistance < 0.5f)
-            {
-                Debug.Log("GoToNextPoint");
-                GoToNextPoint(biterEnemy_AI_Controller);
-            }
 
-            biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.BiterAgent.destination);
+        if (!biterEnemy_AI_Controller.BiterAgent.pathPending && biterEnemy_AI_Controller.BiterAgent.remainingDistance < 0.5f)
+        {
+            Debug.Log("GoToNextPoint");
+            GoToNextPoint(biterEnemy_AI_Controller);
         }
 
-        if (biterEnemy_AI_Controller.isFollower)
-        {
-            biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.Leader.transform.position + biterEnemy_AI_Controller.offset);
-        }
+        biterEnemy_AI_Controller.BiterAgent.SetDestination(biterEnemy_AI_Controller.BiterAgent.destination);
 
     }
     public override void ExitState(BiterEnemy_AI_Controller biterEnemy_AI_Controller, BiterEnemy_AI_AttackRadius biterEnemy_AI_AttackRadius)

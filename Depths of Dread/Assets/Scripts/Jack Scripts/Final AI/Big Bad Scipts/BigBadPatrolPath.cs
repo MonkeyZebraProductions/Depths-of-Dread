@@ -6,7 +6,8 @@ public class BigBadPatrolPath : MonoBehaviour
 {
     public List<Transform> waypoints;
 
-    private void Start()
+
+    private void Awake()
     {
         waypoints = PopulatePath(transform);
     }
@@ -16,7 +17,7 @@ public class BigBadPatrolPath : MonoBehaviour
         
     }
 
-  
+    
 
     List<Transform> PopulatePath(Transform parent)
     {
