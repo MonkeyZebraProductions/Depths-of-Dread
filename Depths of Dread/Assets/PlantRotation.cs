@@ -15,7 +15,7 @@ public class PlantRotation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         // Get the camera's y and x rotations
         float yRotation = cam.transform.rotation.eulerAngles.y-180;

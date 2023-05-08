@@ -76,7 +76,7 @@ public class GrappleSystem : MonoBehaviour
             GrabbedObject.transform.parent = null;
             _grappleRigidbody.isKinematic = false;
             _grappleRigidbody.useGravity = true;
-            GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 1f);
+            GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 2f);
             GrabbedObject = null;
             IsGrappling = false;
         }
@@ -101,7 +101,7 @@ public class GrappleSystem : MonoBehaviour
                     //_grappleRigidbody.isKinematic = false;
                     _grappleRigidbody.useGravity = true;
                     _grappleRigidbody.AddForce(transform.forward * LaunchForce, ForceMode.Impulse);
-                    GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 1f);
+                    GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 2f);
                     GrabbedObject = null;
                     IsGrappling = false;
                 }
@@ -136,7 +136,7 @@ public class GrappleSystem : MonoBehaviour
                 //_grappleRigidbody.isKinematic = true;
                 _grappleRigidbody.useGravity = false;
                 GrappleMat = GrabbedObject.GetComponent<MeshRenderer>().material;
-                GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, AlphaAmount);
+                GrappleMat.color = new Color(GrappleMat.color.r, GrappleMat.color.g, GrappleMat.color.b, 1.2f);
                 GrabbedObject.GetComponent<MoveOutOfWall>().grappled = true;
             }
             else
