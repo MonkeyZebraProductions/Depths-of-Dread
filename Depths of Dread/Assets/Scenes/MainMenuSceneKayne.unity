@@ -5146,22 +5146,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1131222161}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 138757850}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 823658627}
+        m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7067,7 +7055,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 823658626}
         m_TargetAssemblyTypeName: GraphicsSettings, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
@@ -13554,7 +13542,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 823658626}
         m_TargetAssemblyTypeName: GraphicsSettings, Assembly-CSharp
         m_MethodName: SetQuality
         m_Mode: 0
@@ -17672,6 +17660,8 @@ GameObject:
   - component: {fileID: 1921004003}
   - component: {fileID: 1921004002}
   - component: {fileID: 1921004004}
+  - component: {fileID: 1921004006}
+  - component: {fileID: 1921004005}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -17839,6 +17829,105 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1921004005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921003998}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 709c861616113324f800d71e38a36b74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSlotSelected: 0
+  WeaponSlots: []
+  WeaponModels: []
+  DefaultArm: {fileID: 0}
+  playerInput: {fileID: 0}
+  weaponSwitchingOneKey:
+    m_Name: Weapon Switching One Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd9745f6-e4b4-48c0-8808-9691240bfb26
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  weaponSwitchingTwoKey:
+    m_Name: Weapon Switching Two Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 612d9edc-86e5-4961-be80-da2e03fe07ab
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  weaponSwitchingThreeKey:
+    m_Name: Weapon Switching Three Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0116c03e-d1ac-4d44-b009-b53715bf634e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  weaponSwitchingFourKey:
+    m_Name: Weapon Switching Four Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 311c884f-e0e0-46b4-98d4-8d02035951ba
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  grappleSystem: {fileID: 0}
+  punch: {fileID: 0}
+  IsAiming: 0
+  IsFiring: 0
+  ClipAmmo: 0
+  TotalAmmo: 0
+  ClipCount: {fileID: 0}
+  AmmoCount: {fileID: 0}
+  WeaponWheel: {fileID: 0}
+  WeaponCanvas: {fileID: 0}
+  SlotImages: []
+  WheelRotations: []
+--- !u!114 &1921004006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921003998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1927990645
 GameObject:
   m_ObjectHideFlags: 0

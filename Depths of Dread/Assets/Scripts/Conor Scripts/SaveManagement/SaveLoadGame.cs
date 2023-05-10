@@ -24,6 +24,7 @@ public class SaveLoadGame : MonoBehaviour
     public GameObject Player;
     private PlayerMovementScript _pms;
     private AirArmour _aA;
+    private GrappleSystem _gH;
 
     public int CurrentAnchorPointNumber;
 
@@ -46,6 +47,7 @@ public class SaveLoadGame : MonoBehaviour
 
         _pms = FindObjectOfType<PlayerMovementScript>();
         _aA = FindObjectOfType<AirArmour>();
+        _gH = FindObjectOfType<GrappleSystem>();
         Player = _pms.gameObject;
     }
 
@@ -59,6 +61,7 @@ public class SaveLoadGame : MonoBehaviour
         Debug.Log("Game Saved");
         saveGame.AnchorPointNumber = CurrentAnchorPointNumber;
         saveGame.DashEnabled = _pms.DashEnabled;
+        saveGame.GrappleEnabled = _gH.enabled;
         saveGame.CurrentAir = _aA.air;
         saveGame.CurrentArmour = _aA.damage;
         saveGame.CurrentMaxAir = _aA.MaxAir;
@@ -85,6 +88,7 @@ public class SaveLoadGame : MonoBehaviour
             _aA.air = saveGame.CurrentAir;
             _aA.MaxAir = saveGame.CurrentMaxAir;
             _aA.AirDecreaceRate = saveGame.CurrentMaxArmour;
+            _gH.enabled=saveGame.GrappleEnabled;
             //Player.transform.position = AreaAnchorPoints[saveGame.AnchorPointNumber].position;
         }
         else
@@ -93,6 +97,7 @@ public class SaveLoadGame : MonoBehaviour
             saveGame.DashEnabled = _pms.DashEnabled;
             _aA.air = _aA.MaxAir;
             _aA.damage = _aA.BaseDamageMultiplier;
+            _gH.enabled=false;
         }
         Player.transform.position = AreaAnchorPoints[saveGame.AnchorPointNumber].position;
     }

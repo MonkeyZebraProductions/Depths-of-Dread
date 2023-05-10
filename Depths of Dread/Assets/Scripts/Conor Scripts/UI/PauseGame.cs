@@ -21,8 +21,16 @@ public class PauseGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if(TitleScreem)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         if(!TitleScreem)
         {
             PauseButton = PlayerInput.actions["Pause"];
@@ -72,8 +80,12 @@ public class PauseGame : MonoBehaviour
             {
                 canvas.enabled = true;
             }
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            if (!TitleScreem)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
             Time.timeScale = 1;
             cMB.enabled = true;
             uWE.enabled = true;
