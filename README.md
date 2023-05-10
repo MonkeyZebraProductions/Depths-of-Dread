@@ -1,1 +1,3 @@
 # Depths-of-Dread
+
+Note: GIT LFS REQUIRED TO ACCESS THE MODELS
