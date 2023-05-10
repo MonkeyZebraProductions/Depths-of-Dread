@@ -10,10 +10,12 @@ public class PauseGame : MonoBehaviour
     private InputAction PauseButton;
     public GameObject PauseCanvas,PostProcessing;
     private CinemachineBrain cMB;
-    public bool _isPasued;
+    public bool _isPasued, TitleScreem;
     private UnderWaterEffect uWE;
     private WeaponSwitching wS;
     public AudioSource StageOneTheme;
+
+    public List<Canvas> ToggleCanvas;
     
 
     // Start is called before the first frame update
@@ -21,8 +23,12 @@ public class PauseGame : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        PauseButton = PlayerInput.actions["Pause"];
-        PauseButton.performed += _ => Pause();
+        if(!TitleScreem)
+        {
+            PauseButton = PlayerInput.actions["Pause"];
+            PauseButton.performed += _ => Pause();
+        }
+        
         cMB = FindObjectOfType<CinemachineBrain>();
         uWE = FindObjectOfType<UnderWaterEffect>();
         wS = FindObjectOfType<WeaponSwitching>();
@@ -43,6 +49,10 @@ public class PauseGame : MonoBehaviour
         _isPasued = !_isPasued;
         if(_isPasued)
         {
+            foreach (Canvas canvas in ToggleCanvas)
+            {
+                canvas.enabled = false;
+            }
             //PlayerInput.SwitchCurrentActionMap("UI");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -58,6 +68,10 @@ public class PauseGame : MonoBehaviour
         else
         {
             //PlayerInput.SwitchCurrentActionMap("Player");
+            foreach (Canvas canvas in ToggleCanvas)
+            {
+                canvas.enabled = true;
+            }
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
@@ -67,6 +81,7 @@ public class PauseGame : MonoBehaviour
             PostProcessing.SetActive(true);
             PauseCanvas.SetActive(false);
             StageOneTheme.Play();
+            
         }
     }
 }

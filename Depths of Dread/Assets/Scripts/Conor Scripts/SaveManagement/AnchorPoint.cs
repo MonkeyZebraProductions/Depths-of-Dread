@@ -21,27 +21,10 @@ public class AnchorPoint : MonoBehaviour
         _sLG = FindObjectOfType<SaveLoadGame>();
     }
 
-    private void OnTriggerStay(Collider other)
+    public void SetPoints()
     {
-        if(other.gameObject.tag=="Player")
-        {
-            saveInput.SwitchCurrentActionMap("Player/UI");
-            SaveCanvas.SetActive(true);
-            if(Submit.IsPressed())
-            {
-                _sLG.CurrentAreaNumber = AreaNumber;
-                _sLG.CurrentAnchorPointNumber = AnchorPointNumber;
-                _sLG.SaveState();
-            }
-        }
+        _sLG.CurrentAnchorPointNumber = AnchorPointNumber;
+        _sLG.SaveState();
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            saveInput.SwitchCurrentActionMap("Player");
-            SaveCanvas.SetActive(false);
-        }
-    }
+   
 }

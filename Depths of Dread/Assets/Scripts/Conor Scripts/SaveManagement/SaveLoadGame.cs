@@ -9,20 +9,22 @@ using Cinemachine;
 [Serializable]
 public struct SaveGame
 {
-    public int AreaNumber;
     public int AnchorPointNumber;
     public bool DashEnabled;
-    public bool JetpackEnabled;
-    public float CamRotationY;
+    public bool GrappleEnabled;
+    public float CurrentArmour;
+    public float CurrentAir;
+    public float CurrentMaxArmour;
+    public float CurrentMaxAir;
 }
 
 public class SaveLoadGame : MonoBehaviour
 {
 
-    public GameObject Player,Top,Bottom;
+    public GameObject Player;
     private PlayerMovementScript _pms;
+    private AirArmour _aA;
 
-    public int CurrentAreaNumber;
     public int CurrentAnchorPointNumber;
 
     public SaveGame saveGame;
@@ -31,7 +33,11 @@ public class SaveLoadGame : MonoBehaviour
 
     public List<Transform> AreaAnchorPoints;
 
-    public CinemachineVirtualCamera PlayerCam;
+    public bool StartPoint;
+
+    public float BaseAir,BaseArmour;
+
+
 
     private void Awake()
     {
@@ -39,6 +45,7 @@ public class SaveLoadGame : MonoBehaviour
         saveGame = new SaveGame();
 
         _pms = FindObjectOfType<PlayerMovementScript>();
+        _aA = FindObjectOfType<AirArmour>();
         Player = _pms.gameObject;
     }
 
@@ -50,11 +57,12 @@ public class SaveLoadGame : MonoBehaviour
     public void SaveState()
     {
         Debug.Log("Game Saved");
-        saveGame.AreaNumber = CurrentAreaNumber;
         saveGame.AnchorPointNumber = CurrentAnchorPointNumber;
         saveGame.DashEnabled = _pms.DashEnabled;
-        saveGame.JetpackEnabled = _pms.JetpackEnabled;
-        saveGame.CamRotationY = PlayerCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value;
+        saveGame.CurrentAir = _aA.air;
+        saveGame.CurrentArmour = _aA.damage;
+        saveGame.CurrentMaxAir = _aA.MaxAir;
+        saveGame.CurrentMaxArmour = _aA.AirDecreaceRate;
         string gameStatusJson = JsonUtility.ToJson(saveGame);
         File.WriteAllText(filePath + "/" + FILE_NAME, gameStatusJson);
     }
@@ -67,24 +75,25 @@ public class SaveLoadGame : MonoBehaviour
             //deserialise the loaded string into a GameStatus struct   
             saveGame = JsonUtility.FromJson<SaveGame>(loadedJson);
 
-            if (SceneManager.GetActiveScene().buildIndex != saveGame.AreaNumber)
+            if (SceneManager.GetActiveScene().buildIndex != 1)
             {
-                SceneManager.LoadScene(saveGame.AreaNumber);
+                SceneManager.LoadScene(1);
             }
 
             _pms.DashEnabled = saveGame.DashEnabled;
-            _pms.JetpackEnabled = saveGame.JetpackEnabled;
-            Player.transform.position = AreaAnchorPoints[saveGame.AnchorPointNumber].position;
-            PlayerCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value= saveGame.CamRotationY;
-            Bottom.transform.localRotation = Top.transform.rotation;
+            _aA.damage = saveGame.CurrentArmour;
+            _aA.air = saveGame.CurrentAir;
+            _aA.MaxAir = saveGame.CurrentMaxAir;
+            _aA.AirDecreaceRate = saveGame.CurrentMaxArmour;
+            //Player.transform.position = AreaAnchorPoints[saveGame.AnchorPointNumber].position;
         }
         else
         {
-            saveGame.AreaNumber = CurrentAreaNumber;
             saveGame.AnchorPointNumber = CurrentAnchorPointNumber;
             saveGame.DashEnabled = _pms.DashEnabled;
-            saveGame.JetpackEnabled = _pms.JetpackEnabled;
-            saveGame.CamRotationY = Top.transform.localRotation.eulerAngles.y;
+            _aA.air = _aA.MaxAir;
+            _aA.damage = _aA.BaseDamageMultiplier;
         }
+        Player.transform.position = AreaAnchorPoints[saveGame.AnchorPointNumber].position;
     }
 }

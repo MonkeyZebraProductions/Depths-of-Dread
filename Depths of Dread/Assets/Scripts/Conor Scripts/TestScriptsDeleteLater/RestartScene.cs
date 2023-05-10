@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class RestartScene : MonoBehaviour
 {
     // Start is called before the first frame update
+    public SaveLoadGame SLG;
     void Start()
     {
         
@@ -16,7 +17,8 @@ public class RestartScene : MonoBehaviour
     {
         if(Keyboard.current.gKey.wasPressedThisFrame)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
+            SLG.LoadGame();
         }
     }
 }

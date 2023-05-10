@@ -333,6 +333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shoulder.R (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7473717762257678595, guid: b856410af31c97749889318c156688c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7858468444349704613, guid: b856410af31c97749889318c156688c8, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Standard Shot Module
   weaponPrefab: {fileID: 3672655026206833581, guid: 947619ae6a6214c4197ff225e6c6f0b1, type: 3}
-  MaxAmmoCount: 100
-  currentAmmoCount: 100
+  MaxAmmoCount: 24
+  currentAmmoCount: 24
   ClipSize: 12
   weaponRange: 10
   bulletsPerShot: 1

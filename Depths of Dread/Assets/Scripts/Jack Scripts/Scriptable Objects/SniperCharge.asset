@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Shotgun
   weaponPrefab: {fileID: 6249328331763939993, guid: d6036bdf34a31874ba3d714833208bf9, type: 3}
   MaxAmmoCount: 100
-  currentAmmoCount: 100
+  currentAmmoCount: 2
   ClipSize: 1
   weaponRange: 100
   bulletsPerShot: 1

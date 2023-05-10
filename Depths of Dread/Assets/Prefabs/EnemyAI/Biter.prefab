@@ -103,7 +103,7 @@ Transform:
   - {fileID: 4328658589340907929}
   - {fileID: 4328658591047957168}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &4328658590293029405
 NavMeshAgent:
@@ -329,7 +329,7 @@ MonoBehaviour:
   nextAttack: 0
   attackRate: 5
   player: {fileID: 0}
-  Damage: 10
+  Damage: 2
   AttackSfx: {fileID: 0}
   TimerToRetreat: 10
 --- !u!135 &4328658591047957169

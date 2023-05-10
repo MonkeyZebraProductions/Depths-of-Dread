@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Shotgun
   weaponPrefab: {fileID: 6249328331763939993, guid: d6036bdf34a31874ba3d714833208bf9, type: 3}
-  MaxAmmoCount: 100
+  MaxAmmoCount: 48
   currentAmmoCount: 78
   ClipSize: 24
   weaponRange: 10

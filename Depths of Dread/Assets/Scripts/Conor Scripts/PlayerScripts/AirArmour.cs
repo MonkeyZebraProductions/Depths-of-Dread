@@ -16,7 +16,7 @@ public class AirArmour : MonoBehaviour
     public float BaseDamageMultiplier = 1;
     public float MaxDamage = 10;
 
-    private float air, damage,lowAirDecreaseRate;
+    public float air, damage,lowAirDecreaseRate;
 
 
     //Air Management
@@ -25,6 +25,8 @@ public class AirArmour : MonoBehaviour
     public Transform Needle;
     public Material AirMat,DialMat;
     public ParticleSystem LeftBubbles, RightBubbles;
+
+    public GameObject DeathCanvas;
 
     //Getting Hit
     private ParticleSystem Sparks;
@@ -56,8 +58,8 @@ public class AirArmour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        air = MaxAir;
-        damage = BaseDamageMultiplier;
+        //air = MaxAir;
+        //damage = BaseDamageMultiplier;
         Sparks = GetComponentInChildren<ParticleSystem>();
         //Brain = FindObjectOfType<CinemachineBrain>();
         lowAirDecreaseRate = 1;
@@ -136,6 +138,7 @@ public class AirArmour : MonoBehaviour
         if (air<=0)
         {
             //Kill
+            DeathCanvas.SetActive(true);
             Destroy(this.gameObject);
         }
 

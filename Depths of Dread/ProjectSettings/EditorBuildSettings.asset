@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PauseMenuTest.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/MainMenuSceneKayne.unity
+    guid: 920ed864f86a4c942826e55834520809
+  - enabled: 1
     path: Assets/Scenes/Jack Scenes/Prototype Navmesh.unity
     guid: 921e9cf526c1fd54e9bcf307035ce81d
   m_configObjects: {}

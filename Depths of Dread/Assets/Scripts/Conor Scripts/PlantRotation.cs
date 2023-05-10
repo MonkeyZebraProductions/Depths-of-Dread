@@ -7,7 +7,7 @@ public class PlantRotation : MonoBehaviour
 
     public Camera cam;
     public float MaxAngle = 20;
-    public float Step;
+    private float Lerper;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +15,7 @@ public class PlantRotation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         // Get the camera's y and x rotations
         float yRotation = cam.transform.rotation.eulerAngles.y-180;
@@ -25,7 +25,7 @@ public class PlantRotation : MonoBehaviour
 
        if(xRotation<MaxAngle)
        {
-           transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.Euler(transform.rotation.x, yRotation, transform.rotation.z),Step);
+           transform.rotation = Quaternion.Euler(transform.rotation.x, yRotation, transform.rotation.z);
        }
        else
        {

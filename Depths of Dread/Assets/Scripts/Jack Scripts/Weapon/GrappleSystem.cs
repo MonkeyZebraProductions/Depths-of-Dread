@@ -14,6 +14,7 @@ public class GrappleSystem : MonoBehaviour
     public CinemachineVirtualCamera AimCam;
     public float HorizSpeed, VertSpeed;
 
+    public List<GameObject> GrappleHookModel;
     //input actions
 
 
@@ -126,9 +127,13 @@ public class GrappleSystem : MonoBehaviour
         //destroys hook once it gets close to the player
         if (Vector3.Distance(VisibleAnchor.transform.position, transform.position) <= VisibleAnchor.SpawnDistance*_currentHookMultiplier)
         {
+            foreach (GameObject obj in GrappleHookModel)
+            {
+                obj.SetActive(true);
+            }
             if (VisibleAnchor.ObjectGrabbed)
             {
-                GrabbedObject = VisibleAnchor.transform.GetChild(0).gameObject;
+                GrabbedObject = VisibleAnchor.transform.GetChild(1).gameObject;
                 GrabbedObject.transform.SetParent(this.transform);
                 GrabbedObject.transform.localPosition = SpawnPoint.localPosition;
                 GrabbedObject.transform.localRotation = Quaternion.identity;
@@ -163,18 +168,24 @@ public class GrappleSystem : MonoBehaviour
             _currentHookMultiplier = 1;
         }
         VLB.EndPos = new Vector3(0, 0, Vector3.Distance(VisibleAnchor.transform.position, transform.position)-3f);
-
+        
+        
     }
 
     void SpawnHook()
     {
         //spawn Grapple Hook if not visible or Grabbing
         VLB.gameObject.SetActive(true);
+        foreach (GameObject obj in GrappleHookModel)
+        {
+            obj.SetActive(false);
+        }
         _gH.target = SpawnPoint.position + SpawnPoint.forward * _gH.Length;
         Instantiate(GrappleObject, SpawnPoint.position + SpawnPoint.forward * _gH.SpawnDistance * 1.1f, Quaternion.identity);
         VisibleAnchor = FindObjectOfType<GrapplingHook>();
         VisibleAnchor.TargetReached = false;
         HookSfx.Play();
+        
     }
 
     public void BringBack()
